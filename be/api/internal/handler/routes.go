@@ -4,6 +4,7 @@ package handler
 import (
 	"net/http"
 
+	basestation "be/api/internal/handler/basestation"
 	"be/api/internal/svc"
 
 	"github.com/zeromicro/go-zero/rest"
@@ -13,9 +14,29 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		[]rest.Route{
 			{
+				Method:  http.MethodPost,
+				Path:    "/api/base-station",
+				Handler: basestation.CreateBaseStationHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPut,
+				Path:    "/api/base-station/:id",
+				Handler: basestation.UpdateBaseStationHandler(serverCtx),
+			},
+			{
 				Method:  http.MethodGet,
-				Path:    "/from/:name",
-				Handler: ApiHandler(serverCtx),
+				Path:    "/api/base-station/:id",
+				Handler: basestation.GetBaseStationHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/api/base-stations",
+				Handler: basestation.ListBaseStationsHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodDelete,
+				Path:    "/api/base-station/:id",
+				Handler: basestation.DeleteBaseStationHandler(serverCtx),
 			},
 		},
 	)
