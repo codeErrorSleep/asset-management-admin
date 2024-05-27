@@ -1,0 +1,73 @@
+type BaseStation {
+	Id          int64  `json:"id"`
+	Name        string `json:"name"`
+	Address     string `json:"address"`
+	Image       string `json:"image,omitempty"` // Assuming images are stored as JSON array strings
+	CheckStatus string `json:"check_status,omitempty"`
+	CheckTime   string `json:"check_time,omitempty"` // Using string for date-time to simplify
+	CheckUserId int64  `json:"check_user_id,omitempty"`
+	PrincipalId int64  `json:"principal_id,omitempty"`
+	PlanTime    string `json:"plan_time,omitempty"`
+	CreateTime  string `json:"create_time"`
+	UpdateTime  string `json:"update_time"`
+}
+type CreateBaseStationReq {
+	Name     string `json:"name"`
+	Address  string `json:"address"`
+	Image    string `json:"image,omitempty"`
+	PlanTime string `json:"plan_time,omitempty"`
+}
+type CreateBaseStationResp {
+	Id int64 `json:"id"`
+}
+type UpdateBaseStationReq {
+	Id          int64  `json:"id"`
+	Name        string `json:"name"`
+	Address     string `json:"address"`
+	Image       string `json:"image,omitempty"`
+	CheckStatus string `json:"check_status,omitempty"`
+	CheckTime   string `json:"check_time,omitempty"`
+	CheckUserId int64  `json:"check_user_id,omitempty"`
+	PrincipalId int64  `json:"principal_id,omitempty"`
+	PlanTime    string `json:"plan_time,omitempty"`
+}
+type UpdateBaseStationResp {
+	Updated bool `json:"updated"`
+}
+type GetBaseStationReq {
+	Id int64 `path:"id"`
+}
+type GetBaseStationResp {
+	BaseStation BaseStation `json:"base_station"`
+}
+type ListBaseStationsReq {
+	Offset int64 `json:"offset"`
+	Limit  int64 `json:"limit"`
+}
+type ListBaseStationsResp {
+	BaseStations []BaseStation `json:"base_stations"`
+	Total        int64         `json:"total"`
+}
+type DeleteBaseStationReq {
+	Id int64 `json:"id"`
+}
+type DeleteBaseStationResp {
+	Deleted bool `json:"deleted"`
+}
+
+
+@server(
+	group: basestation
+)
+service base-station-api {
+	@handler createBaseStation
+	post /api/base-station (CreateBaseStationReq) returns (CreateBaseStationResp)
+	@handler updateBaseStation
+	put /api/base-station/:id (UpdateBaseStationReq) returns (UpdateBaseStationResp)
+	@handler getBaseStation
+	get /api/base-station/:id (GetBaseStationReq) returns (GetBaseStationResp)
+	@handler listBaseStations
+	get /api/base-stations (ListBaseStationsReq) returns (ListBaseStationsResp)
+	@handler deleteBaseStation
+	delete /api/base-station/:id (DeleteBaseStationReq) returns (DeleteBaseStationResp)
+}

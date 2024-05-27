@@ -1,0 +1,6 @@
+import "base/basestation.api"
+
+info(
+	desc: "go zero admin"
+	author: "qiushao"
+)
