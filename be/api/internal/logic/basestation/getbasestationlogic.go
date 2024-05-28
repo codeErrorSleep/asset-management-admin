@@ -24,7 +24,19 @@ func NewGetBaseStationLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Ge
 }
 
 func (l *GetBaseStationLogic) GetBaseStation(req *types.GetBaseStationReq) (resp *types.GetBaseStationResp, err error) {
-	// todo: add your logic here and delete this line
+	baseStation, err := l.svcCtx.TBaseStation.FindOne(l.ctx, req.Id)
+	if err != nil {
+		return resp, nil
+	}
 
-	return
+	resp = &types.GetBaseStationResp{
+		BaseStation: types.BaseStation{
+			Id:         baseStation.Id,
+			Name:       baseStation.Name,
+			CreateTime: baseStation.CreateTime.Format("2006-01-02 15:04:05"),
+			UpdateTime: baseStation.UpdateTime.Format("2006-01-02 15:04:05"),
+		},
+	}
+
+	return resp, nil
 }

@@ -24,7 +24,30 @@ func NewListBaseStationsLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 }
 
 func (l *ListBaseStationsLogic) ListBaseStations(req *types.ListBaseStationsReq) (resp *types.ListBaseStationsResp, err error) {
-	// todo: add your logic here and delete this line
 
-	return
+	data, err := l.svcCtx.TBaseStation.ListByPage(l.ctx, req.Page, req.PageSize)
+	if err != nil {
+		return nil, err
+	}
+
+	var baseStations []types.BaseStation
+	for _, item := range data {
+		baseStations = append(baseStations, types.BaseStation{
+			Id:          item.Id,
+			Name:        item.Name,
+			Address:     item.Address,
+			Image:       item.Image.String,
+			CheckStatus: item.CheckStatus.String,
+			CheckTime:   item.CheckTime.Time.Format("2006-01-02 15:04:05"),
+			CheckUserId: item.CheckUserId.Int64,
+			PrincipalId: item.PrincipalId.Int64,
+			PlanTime:    item.PlanTime.Time.Format("2006-01-02 15:04:05"),
+			CreateTime:  item.CreateTime.Format("2006-01-02 15:04:05"),
+			UpdateTime:  item.UpdateTime.Format("2006-01-02 15:04:05"),
+		})
+	}
+	return &types.ListBaseStationsResp{
+		BaseStations: baseStations,
+		Total:        int64(len(data)),
+	}, nil
 }

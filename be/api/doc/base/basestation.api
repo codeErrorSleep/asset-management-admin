@@ -41,8 +41,8 @@ type GetBaseStationResp {
 	BaseStation BaseStation `json:"base_station"`
 }
 type ListBaseStationsReq {
-	Offset int64 `json:"offset"`
-	Limit  int64 `json:"limit"`
+	Page      int64 `json:"page"`
+	PageSizse int64 `json:"page_size"`
 }
 type ListBaseStationsResp {
 	BaseStations []BaseStation `json:"base_stations"`

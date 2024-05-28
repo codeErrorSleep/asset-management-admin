@@ -26,5 +26,9 @@ func NewDeleteBaseStationLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 func (l *DeleteBaseStationLogic) DeleteBaseStation(req *types.DeleteBaseStationReq) (resp *types.DeleteBaseStationResp, err error) {
 	// todo: add your logic here and delete this line
 
-	return
+	err = l.svcCtx.TBaseStation.Delete(l.ctx, req.Id)
+	if err != nil {
+		return resp, err
+	}
+	return resp, nil
 }
