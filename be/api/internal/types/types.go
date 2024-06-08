@@ -51,8 +51,8 @@ type GetBaseStationResp struct {
 }
 
 type ListBaseStationsReq struct {
-	Offset int64 `json:"offset"`
-	Limit  int64 `json:"limit"`
+	Page      int64 `json:"page"`
+	PageSizse int64 `json:"page_size"`
 }
 
 type ListBaseStationsResp struct {
