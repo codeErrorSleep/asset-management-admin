@@ -1,24 +1,24 @@
-package equipment
+package equipmentclass
 
 import (
 	"net/http"
 
-	"be/api/internal/logic/equipment"
+	"be/api/internal/logic/equipmentclass"
 	"be/api/internal/svc"
 	"be/api/internal/types"
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-func UpdateEquipmentDetailHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func GetEquipmentClassHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.UpdateEquipmentDetailReq
+		var req types.GetEquipmentClassReq
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 			return
 		}
 
-		l := equipment.NewUpdateEquipmentDetailLogic(r.Context(), svcCtx)
-		resp, err := l.UpdateEquipmentDetail(&req)
+		l := equipmentclass.NewGetEquipmentClassLogic(r.Context(), svcCtx)
+		resp, err := l.GetEquipmentClass(&req)
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {

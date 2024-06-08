@@ -75,7 +75,7 @@ type (
 )
 
 @server(
-	group: equipment
+	group: equipmentclass
 )
 service admin-api {
 	@handler createEquipmentClass

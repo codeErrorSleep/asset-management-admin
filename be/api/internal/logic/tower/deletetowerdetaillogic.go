@@ -24,7 +24,12 @@ func NewDeleteTowerDetailLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 
 func (l *DeleteTowerDetailLogic) DeleteTowerDetail(req *types.DeleteTowerDetailReq) (resp *types.DeleteTowerDetailResp, err error) {
-	// todo: add your logic here and delete this line
 
-	return
+	err = l.svcCtx.TTowerDetailModel.Delete(l.ctx, req.Id)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return resp, nil
 }

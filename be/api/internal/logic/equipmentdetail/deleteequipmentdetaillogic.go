@@ -1,4 +1,4 @@
-package equipment
+package equipmentdetail
 
 import (
 	"context"
@@ -24,7 +24,11 @@ func NewDeleteEquipmentDetailLogic(ctx context.Context, svcCtx *svc.ServiceConte
 }
 
 func (l *DeleteEquipmentDetailLogic) DeleteEquipmentDetail(req *types.DeleteEquipmentDetailReq) (resp *types.DeleteEquipmentDetailResp, err error) {
-	// todo: add your logic here and delete this line
+
+	err = l.svcCtx.TEquipmentDetailModel.Delete(l.ctx, req.Id)
+	if err != nil {
+		return nil, err
+	}
 
 	return
 }

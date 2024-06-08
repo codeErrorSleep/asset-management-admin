@@ -5,6 +5,7 @@ import (
 
 	"be/api/internal/svc"
 	"be/api/internal/types"
+	"be/model/mysql"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -24,7 +25,17 @@ func NewUpdateTowerDetailLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 
 func (l *UpdateTowerDetailLogic) UpdateTowerDetail(req *types.UpdateTowerDetailReq) (resp *types.UpdateTowerDetailResp, err error) {
-	// todo: add your logic here and delete this line
 
-	return
+	updateData := mysql.TTowerDetail{
+		SubitemId: req.SubitemId,
+		Name:      req.Name,
+		Address:   req.Address,
+	}
+
+	err = l.svcCtx.TTowerDetailModel.Update(l.ctx, &updateData)
+	if err != nil {
+		return nil, err
+	}
+
+	return resp, nil
 }

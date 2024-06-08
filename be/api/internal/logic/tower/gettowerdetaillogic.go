@@ -24,7 +24,30 @@ func NewGetTowerDetailLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Ge
 }
 
 func (l *GetTowerDetailLogic) GetTowerDetail(req *types.GetTowerDetailReq) (resp *types.GetTowerDetailResp, err error) {
-	// todo: add your logic here and delete this line
 
-	return
+	towerDetail, err := l.svcCtx.TTowerDetailModel.FindOne(l.ctx, req.Id)
+	if err != nil {
+		return nil, err
+	}
+
+	respTowerDetail := types.TowerDetail{
+		Id:          towerDetail.Id,
+		SubitemId:   towerDetail.SubitemId,
+		Name:        towerDetail.Name,
+		Address:     towerDetail.Address,
+		Image:       towerDetail.Image.String,
+		CheckStatus: towerDetail.CheckStatus.String,
+		CheckTime:   towerDetail.CheckTime.Time.Format("2006-01-02 15:04:05"),
+		CheckUserId: towerDetail.CheckUserId.Int64,
+		PrincipalId: towerDetail.PrincipalId.Int64,
+		PlanTime:    towerDetail.PlanTime.Time.Format("2006-01-02 15:04:05"),
+		CreateTime:  towerDetail.CreateTime.Format("2006-01-02 15:04:05"),
+		UpdateTime:  towerDetail.UpdateTime.Format("2006-01-02 15:04:05"),
+	}
+
+	resp = &types.GetTowerDetailResp{
+		TowerDetail: respTowerDetail,
+	}
+
+	return resp, nil
 }

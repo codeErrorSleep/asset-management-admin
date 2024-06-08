@@ -2,9 +2,11 @@ package tower
 
 import (
 	"context"
+	"errors"
 
 	"be/api/internal/svc"
 	"be/api/internal/types"
+	"be/model/mysql"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -24,7 +26,20 @@ func NewCreateTowerDetailLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 
 func (l *CreateTowerDetailLogic) CreateTowerDetail(req *types.CreateTowerDetailReq) (resp *types.CreateTowerDetailResp, err error) {
-	// todo: add your logic here and delete this line
+	insertData := mysql.TTowerDetail{
+		SubitemId: req.SubitemId,
+		Name:      req.Name,
+		Address:   req.Address,
+	}
 
-	return
+	sqlResult, err := l.svcCtx.TTowerDetailModel.Insert(l.ctx, &insertData)
+	if err != nil {
+		return nil, err
+	}
+
+	if attect, _ := sqlResult.RowsAffected(); attect == 0 {
+		return nil, errors.New("insert failed")
+	}
+
+	return resp, nil
 }

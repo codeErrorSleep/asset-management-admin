@@ -4,7 +4,8 @@ package handler
 import (
 	"net/http"
 
-	equipment "be/api/internal/handler/equipment"
+	equipmentclass "be/api/internal/handler/equipmentclass"
+	equipmentdetail "be/api/internal/handler/equipmentdetail"
 	tower "be/api/internal/handler/tower"
 	towerequipment "be/api/internal/handler/towerequipment"
 	"be/api/internal/svc"
@@ -68,27 +69,27 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			{
 				Method:  http.MethodPost,
 				Path:    "/api/equipment-class",
-				Handler: equipment.CreateEquipmentClassHandler(serverCtx),
+				Handler: equipmentclass.CreateEquipmentClassHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodPut,
 				Path:    "/api/equipment-class/:id",
-				Handler: equipment.UpdateEquipmentClassHandler(serverCtx),
+				Handler: equipmentclass.UpdateEquipmentClassHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodGet,
 				Path:    "/api/equipment-class/:id",
-				Handler: equipment.GetEquipmentClassHandler(serverCtx),
+				Handler: equipmentclass.GetEquipmentClassHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodGet,
 				Path:    "/api/equipment-classes",
-				Handler: equipment.ListEquipmentClassesHandler(serverCtx),
+				Handler: equipmentclass.ListEquipmentClassesHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodDelete,
 				Path:    "/api/equipment-class/:id",
-				Handler: equipment.DeleteEquipmentClassHandler(serverCtx),
+				Handler: equipmentclass.DeleteEquipmentClassHandler(serverCtx),
 			},
 		},
 	)
@@ -98,27 +99,27 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			{
 				Method:  http.MethodPost,
 				Path:    "/api/equipment-detail",
-				Handler: equipment.CreateEquipmentDetailHandler(serverCtx),
+				Handler: equipmentdetail.CreateEquipmentDetailHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodPut,
 				Path:    "/api/equipment-detail/:id",
-				Handler: equipment.UpdateEquipmentDetailHandler(serverCtx),
+				Handler: equipmentdetail.UpdateEquipmentDetailHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodGet,
 				Path:    "/api/equipment-detail/:id",
-				Handler: equipment.GetEquipmentDetailHandler(serverCtx),
+				Handler: equipmentdetail.GetEquipmentDetailHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodGet,
 				Path:    "/api/equipment-details",
-				Handler: equipment.ListEquipmentDetailsHandler(serverCtx),
+				Handler: equipmentdetail.ListEquipmentDetailsHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodDelete,
 				Path:    "/api/equipment-detail/:id",
-				Handler: equipment.DeleteEquipmentDetailHandler(serverCtx),
+				Handler: equipmentdetail.DeleteEquipmentDetailHandler(serverCtx),
 			},
 		},
 	)

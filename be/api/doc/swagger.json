@@ -1,0 +1,1468 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "",
+    "description": "go zero admin",
+    "version": ""
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/equipment-class": {
+      "post": {
+        "operationId": "createEquipmentClass",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreateEquipmentClassResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": " 创建设备分类请求",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateEquipmentClassReq"
+            }
+          }
+        ],
+        "tags": [
+          "equipmentclass"
+        ]
+      }
+    },
+    "/api/equipment-class/{id}": {
+      "get": {
+        "operationId": "getEquipmentClass",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetEquipmentClassResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "equipmentclass"
+        ]
+      },
+      "delete": {
+        "operationId": "deleteEquipmentClass",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeleteEquipmentClassResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "description": " 删除设备分类请求",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteEquipmentClassReq"
+            }
+          }
+        ],
+        "tags": [
+          "equipmentclass"
+        ]
+      },
+      "put": {
+        "operationId": "updateEquipmentClass",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateEquipmentClassResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "description": " 更新设备分类请求",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateEquipmentClassReq"
+            }
+          }
+        ],
+        "tags": [
+          "equipmentclass"
+        ]
+      }
+    },
+    "/api/equipment-classes": {
+      "get": {
+        "operationId": "listEquipmentClasses",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ListEquipmentClassesResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "description": " 页码",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "page_size",
+            "description": " 每页数量",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "equipmentclass"
+        ]
+      }
+    },
+    "/api/equipment-detail": {
+      "post": {
+        "operationId": "createEquipmentDetail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreateEquipmentDetailResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": " 创建设备详情请求",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateEquipmentDetailReq"
+            }
+          }
+        ],
+        "tags": [
+          "equipmentdetail"
+        ]
+      }
+    },
+    "/api/equipment-detail/{id}": {
+      "get": {
+        "operationId": "getEquipmentDetail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetEquipmentDetailResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "equipmentdetail"
+        ]
+      },
+      "delete": {
+        "operationId": "deleteEquipmentDetail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeleteEquipmentDetailResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "description": " 删除设备详情请求",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteEquipmentDetailReq"
+            }
+          }
+        ],
+        "tags": [
+          "equipmentdetail"
+        ]
+      },
+      "put": {
+        "operationId": "updateEquipmentDetail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateEquipmentDetailResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "description": " 更新设备详情请求",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateEquipmentDetailReq"
+            }
+          }
+        ],
+        "tags": [
+          "equipmentdetail"
+        ]
+      }
+    },
+    "/api/equipment-details": {
+      "get": {
+        "operationId": "listEquipmentDetails",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ListEquipmentDetailsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "description": " 页码",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "page_size",
+            "description": " 每页数量",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "equipmentdetail"
+        ]
+      }
+    },
+    "/api/tower-detail": {
+      "post": {
+        "operationId": "createTowerDetail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreateTowerDetailResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": " 创建杆塔详情请求",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateTowerDetailReq"
+            }
+          }
+        ],
+        "tags": [
+          "tower"
+        ]
+      }
+    },
+    "/api/tower-detail/{id}": {
+      "get": {
+        "operationId": "getTowerDetail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetTowerDetailResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "tower"
+        ]
+      },
+      "delete": {
+        "operationId": "deleteTowerDetail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeleteTowerDetailResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "description": " 删除杆塔详情请求",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteTowerDetailReq"
+            }
+          }
+        ],
+        "tags": [
+          "tower"
+        ]
+      },
+      "put": {
+        "operationId": "updateTowerDetail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateTowerDetailResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "description": " 更新杆塔详情请求",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateTowerDetailReq"
+            }
+          }
+        ],
+        "tags": [
+          "tower"
+        ]
+      }
+    },
+    "/api/tower-details": {
+      "get": {
+        "operationId": "listTowerDetails",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ListTowerDetailsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "description": " 页码",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "page_size",
+            "description": " 每页数量",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "tower"
+        ]
+      }
+    },
+    "/api/tower-equipment": {
+      "post": {
+        "operationId": "createTowerEquipment",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreateTowerEquipmentResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": " 新增杆塔设备关联请求",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateTowerEquipmentReq"
+            }
+          }
+        ],
+        "tags": [
+          "towerequipment"
+        ]
+      }
+    },
+    "/api/tower-equipment/list": {
+      "get": {
+        "operationId": "listEquipmentByTowerId",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ListEquipmentByTowerIdResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tower_id",
+            "description": " 杆塔ID",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "towerequipment"
+        ]
+      }
+    },
+    "/api/tower-equipment/{id}": {
+      "delete": {
+        "operationId": "deleteTowerEquipment",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeleteTowerEquipmentResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "description": " 删除杆塔设备关联请求",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteTowerEquipmentReq"
+            }
+          }
+        ],
+        "tags": [
+          "towerequipment"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "CreateEquipmentClassReq": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": " 名称"
+        },
+        "code": {
+          "type": "string",
+          "description": " 代码"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 状态"
+        },
+        "p_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 父类ID"
+        }
+      },
+      "title": "CreateEquipmentClassReq",
+      "required": [
+        "name",
+        "code",
+        "status",
+        "p_id"
+      ]
+    },
+    "CreateEquipmentClassResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 主键ID"
+        }
+      },
+      "title": "CreateEquipmentClassResp",
+      "required": [
+        "id"
+      ]
+    },
+    "CreateEquipmentDetailReq": {
+      "type": "object",
+      "properties": {
+        "class_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 分类ID"
+        },
+        "name": {
+          "type": "string",
+          "description": " 设备名称"
+        },
+        "type": {
+          "type": "string",
+          "description": " 设备类型"
+        },
+        "specific_model": {
+          "type": "string",
+          "description": " 具体型号"
+        },
+        "unit": {
+          "type": "string",
+          "description": " 单位"
+        },
+        "status": {
+          "type": "string",
+          "description": " 状态"
+        },
+        "image": {
+          "type": "string",
+          "description": " 图片"
+        },
+        "create_user_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 创建用户ID"
+        }
+      },
+      "title": "CreateEquipmentDetailReq",
+      "required": [
+        "class_id",
+        "name",
+        "type",
+        "specific_model",
+        "unit",
+        "status",
+        "image",
+        "create_user_id"
+      ]
+    },
+    "CreateEquipmentDetailResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 主键ID"
+        }
+      },
+      "title": "CreateEquipmentDetailResp",
+      "required": [
+        "id"
+      ]
+    },
+    "CreateTowerDetailReq": {
+      "type": "object",
+      "properties": {
+        "subitem_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 子项ID"
+        },
+        "name": {
+          "type": "string",
+          "description": " 基站名称"
+        },
+        "address": {
+          "type": "string",
+          "description": " 详细地区"
+        },
+        "image": {
+          "type": "string",
+          "description": " 基站图片"
+        },
+        "plan_time": {
+          "type": "string",
+          "description": " 计划检查时间"
+        }
+      },
+      "title": "CreateTowerDetailReq",
+      "required": [
+        "subitem_id",
+        "name",
+        "address",
+        "image",
+        "plan_time"
+      ]
+    },
+    "CreateTowerDetailResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 主键ID"
+        }
+      },
+      "title": "CreateTowerDetailResp",
+      "required": [
+        "id"
+      ]
+    },
+    "CreateTowerEquipmentReq": {
+      "type": "object",
+      "properties": {
+        "tower_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 杆塔ID"
+        },
+        "equipment_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 设备管理ID"
+        },
+        "principal_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 负责人ID"
+        }
+      },
+      "title": "CreateTowerEquipmentReq",
+      "required": [
+        "tower_id",
+        "equipment_id",
+        "principal_id"
+      ]
+    },
+    "CreateTowerEquipmentResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 新增记录的主键ID"
+        }
+      },
+      "title": "CreateTowerEquipmentResp",
+      "required": [
+        "id"
+      ]
+    },
+    "DeleteEquipmentClassReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 主键ID"
+        }
+      },
+      "title": "DeleteEquipmentClassReq",
+      "required": [
+        "id"
+      ]
+    },
+    "DeleteEquipmentClassResp": {
+      "type": "object",
+      "properties": {
+        "deleted": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否删除成功"
+        }
+      },
+      "title": "DeleteEquipmentClassResp",
+      "required": [
+        "deleted"
+      ]
+    },
+    "DeleteEquipmentDetailReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 主键ID"
+        }
+      },
+      "title": "DeleteEquipmentDetailReq",
+      "required": [
+        "id"
+      ]
+    },
+    "DeleteEquipmentDetailResp": {
+      "type": "object",
+      "properties": {
+        "deleted": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否删除成功"
+        }
+      },
+      "title": "DeleteEquipmentDetailResp",
+      "required": [
+        "deleted"
+      ]
+    },
+    "DeleteTowerDetailReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 主键ID"
+        }
+      },
+      "title": "DeleteTowerDetailReq",
+      "required": [
+        "id"
+      ]
+    },
+    "DeleteTowerDetailResp": {
+      "type": "object",
+      "properties": {
+        "deleted": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否删除成功"
+        }
+      },
+      "title": "DeleteTowerDetailResp",
+      "required": [
+        "deleted"
+      ]
+    },
+    "DeleteTowerEquipmentReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 主键ID"
+        }
+      },
+      "title": "DeleteTowerEquipmentReq",
+      "required": [
+        "id"
+      ]
+    },
+    "DeleteTowerEquipmentResp": {
+      "type": "object",
+      "properties": {
+        "deleted": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否删除成功"
+        }
+      },
+      "title": "DeleteTowerEquipmentResp",
+      "required": [
+        "deleted"
+      ]
+    },
+    "EquipmentClass": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 主键ID"
+        },
+        "name": {
+          "type": "string",
+          "description": " 名称"
+        },
+        "code": {
+          "type": "string",
+          "description": " 代码"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 状态"
+        },
+        "p_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 父类ID"
+        }
+      },
+      "title": "EquipmentClass",
+      "required": [
+        "id",
+        "name",
+        "code",
+        "status",
+        "p_id"
+      ]
+    },
+    "EquipmentDetail": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 主键ID"
+        },
+        "class_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 分类ID"
+        },
+        "name": {
+          "type": "string",
+          "description": " 设备名称"
+        },
+        "type": {
+          "type": "string",
+          "description": " 设备类型"
+        },
+        "specific_model": {
+          "type": "string",
+          "description": " 具体型号"
+        },
+        "unit": {
+          "type": "string",
+          "description": " 单位"
+        },
+        "status": {
+          "type": "string",
+          "description": " 状态"
+        },
+        "image": {
+          "type": "string",
+          "description": " 图片"
+        },
+        "create_user_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 创建用户ID"
+        }
+      },
+      "title": "EquipmentDetail",
+      "required": [
+        "id",
+        "class_id",
+        "name",
+        "type",
+        "specific_model",
+        "unit",
+        "status",
+        "image",
+        "create_user_id"
+      ]
+    },
+    "GetEquipmentClassReq": {
+      "type": "object",
+      "title": "GetEquipmentClassReq"
+    },
+    "GetEquipmentClassResp": {
+      "type": "object",
+      "properties": {
+        "equipment_class": {
+          "$ref": "#/definitions/EquipmentClass",
+          "description": " 设备分类"
+        }
+      },
+      "title": "GetEquipmentClassResp",
+      "required": [
+        "equipment_class"
+      ]
+    },
+    "GetEquipmentDetailReq": {
+      "type": "object",
+      "title": "GetEquipmentDetailReq"
+    },
+    "GetEquipmentDetailResp": {
+      "type": "object",
+      "properties": {
+        "equipment_detail": {
+          "$ref": "#/definitions/EquipmentDetail",
+          "description": " 设备详情"
+        }
+      },
+      "title": "GetEquipmentDetailResp",
+      "required": [
+        "equipment_detail"
+      ]
+    },
+    "GetTowerDetailReq": {
+      "type": "object",
+      "title": "GetTowerDetailReq"
+    },
+    "GetTowerDetailResp": {
+      "type": "object",
+      "properties": {
+        "tower_detail": {
+          "$ref": "#/definitions/TowerDetail",
+          "description": " 杆塔详情"
+        }
+      },
+      "title": "GetTowerDetailResp",
+      "required": [
+        "tower_detail"
+      ]
+    },
+    "ListEquipmentByTowerIdReq": {
+      "type": "object",
+      "properties": {
+        "tower_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 杆塔ID"
+        }
+      },
+      "title": "ListEquipmentByTowerIdReq",
+      "required": [
+        "tower_id"
+      ]
+    },
+    "ListEquipmentByTowerIdResp": {
+      "type": "object",
+      "properties": {
+        "equipments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TowerEquipment"
+          },
+          "description": " 设备列表"
+        }
+      },
+      "title": "ListEquipmentByTowerIdResp",
+      "required": [
+        "equipments"
+      ]
+    },
+    "ListEquipmentClassesReq": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 页码"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 每页数量"
+        }
+      },
+      "title": "ListEquipmentClassesReq",
+      "required": [
+        "page",
+        "page_size"
+      ]
+    },
+    "ListEquipmentClassesResp": {
+      "type": "object",
+      "properties": {
+        "equipment_classes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EquipmentClass"
+          },
+          "description": " 设备分类列表"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总数"
+        }
+      },
+      "title": "ListEquipmentClassesResp",
+      "required": [
+        "equipment_classes",
+        "total"
+      ]
+    },
+    "ListEquipmentDetailsReq": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 页码"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 每页数量"
+        }
+      },
+      "title": "ListEquipmentDetailsReq",
+      "required": [
+        "page",
+        "page_size"
+      ]
+    },
+    "ListEquipmentDetailsResp": {
+      "type": "object",
+      "properties": {
+        "equipment_details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EquipmentDetail"
+          },
+          "description": " 设备详情列表"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总数"
+        }
+      },
+      "title": "ListEquipmentDetailsResp",
+      "required": [
+        "equipment_details",
+        "total"
+      ]
+    },
+    "ListTowerDetailsReq": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 页码"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 每页数量"
+        }
+      },
+      "title": "ListTowerDetailsReq",
+      "required": [
+        "page",
+        "page_size"
+      ]
+    },
+    "ListTowerDetailsResp": {
+      "type": "object",
+      "properties": {
+        "tower_details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TowerDetail"
+          },
+          "description": " 杆塔详情列表"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总数"
+        }
+      },
+      "title": "ListTowerDetailsResp",
+      "required": [
+        "tower_details",
+        "total"
+      ]
+    },
+    "TowerDetail": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 主键ID"
+        },
+        "subitem_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 子项ID"
+        },
+        "name": {
+          "type": "string",
+          "description": " 基站名称"
+        },
+        "address": {
+          "type": "string",
+          "description": " 详细地区"
+        },
+        "image": {
+          "type": "string",
+          "description": " 基站图片，考虑是否支持展示多张"
+        },
+        "check_status": {
+          "type": "string",
+          "description": " 检查状态"
+        },
+        "check_time": {
+          "type": "string",
+          "description": " 检查时间"
+        },
+        "check_user_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 检查人ID"
+        },
+        "principal_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 负责人ID"
+        },
+        "plan_time": {
+          "type": "string",
+          "description": " 计划检查时间"
+        },
+        "create_time": {
+          "type": "string",
+          "description": " 创建时间"
+        },
+        "update_time": {
+          "type": "string",
+          "description": " 更新时间"
+        }
+      },
+      "title": "TowerDetail",
+      "required": [
+        "id",
+        "subitem_id",
+        "name",
+        "address",
+        "image",
+        "check_status",
+        "check_time",
+        "check_user_id",
+        "principal_id",
+        "plan_time",
+        "create_time",
+        "update_time"
+      ]
+    },
+    "TowerEquipment": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 主键ID"
+        },
+        "tower_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 杆塔ID"
+        },
+        "equipment_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 设备管理ID"
+        },
+        "principal_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 负责人ID"
+        },
+        "create_time": {
+          "type": "string",
+          "description": " 创建时间"
+        },
+        "update_time": {
+          "type": "string",
+          "description": " 更新时间"
+        }
+      },
+      "title": "TowerEquipment",
+      "required": [
+        "id",
+        "tower_id",
+        "equipment_id",
+        "principal_id",
+        "create_time",
+        "update_time"
+      ]
+    },
+    "UpdateEquipmentClassReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 主键ID"
+        },
+        "name": {
+          "type": "string",
+          "description": " 名称"
+        },
+        "code": {
+          "type": "string",
+          "description": " 代码"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 状态"
+        },
+        "p_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 父类ID"
+        }
+      },
+      "title": "UpdateEquipmentClassReq",
+      "required": [
+        "id",
+        "name",
+        "code",
+        "status",
+        "p_id"
+      ]
+    },
+    "UpdateEquipmentClassResp": {
+      "type": "object",
+      "properties": {
+        "updated": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否更新成功"
+        }
+      },
+      "title": "UpdateEquipmentClassResp",
+      "required": [
+        "updated"
+      ]
+    },
+    "UpdateEquipmentDetailReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 主键ID"
+        },
+        "class_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 分类ID"
+        },
+        "name": {
+          "type": "string",
+          "description": " 设备名称"
+        },
+        "type": {
+          "type": "string",
+          "description": " 设备类型"
+        },
+        "specific_model": {
+          "type": "string",
+          "description": " 具体型号"
+        },
+        "unit": {
+          "type": "string",
+          "description": " 单位"
+        },
+        "status": {
+          "type": "string",
+          "description": " 状态"
+        },
+        "image": {
+          "type": "string",
+          "description": " 图片"
+        }
+      },
+      "title": "UpdateEquipmentDetailReq",
+      "required": [
+        "id",
+        "class_id",
+        "name",
+        "type",
+        "specific_model",
+        "unit",
+        "status",
+        "image"
+      ]
+    },
+    "UpdateEquipmentDetailResp": {
+      "type": "object",
+      "properties": {
+        "updated": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否更新成功"
+        }
+      },
+      "title": "UpdateEquipmentDetailResp",
+      "required": [
+        "updated"
+      ]
+    },
+    "UpdateTowerDetailReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 主键ID"
+        },
+        "subitem_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 子项ID"
+        },
+        "name": {
+          "type": "string",
+          "description": " 基站名称"
+        },
+        "address": {
+          "type": "string",
+          "description": " 详细地区"
+        },
+        "image": {
+          "type": "string",
+          "description": " 基站图片"
+        },
+        "check_status": {
+          "type": "string",
+          "description": " 检查状态"
+        },
+        "check_time": {
+          "type": "string",
+          "description": " 检查时间"
+        },
+        "check_user_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 检查人ID"
+        },
+        "principal_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 负责人ID"
+        },
+        "plan_time": {
+          "type": "string",
+          "description": " 计划检查时间"
+        }
+      },
+      "title": "UpdateTowerDetailReq",
+      "required": [
+        "id",
+        "subitem_id",
+        "name",
+        "address",
+        "image",
+        "check_status",
+        "check_time",
+        "check_user_id",
+        "principal_id",
+        "plan_time"
+      ]
+    },
+    "UpdateTowerDetailResp": {
+      "type": "object",
+      "properties": {
+        "updated": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否更新成功"
+        }
+      },
+      "title": "UpdateTowerDetailResp",
+      "required": [
+        "updated"
+      ]
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "description": "Enter JWT Bearer token **_only_**",
+      "name": "Authorization",
+      "in": "header"
+    }
+  }
+}
