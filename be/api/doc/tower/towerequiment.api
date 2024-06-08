@@ -1,0 +1,63 @@
+info(
+	title: "杆塔设备关联服务"
+	desc: "提供杆塔设备关联的查询、新增、删除接口"
+	author: "ACPilot"
+)
+
+type (
+	// 杆塔设备关联
+	TowerEquipment {
+		Id          int64     `json:"id"`          // 主键ID
+		TowerId     int64     `json:"tower_id"`    // 杆塔ID
+		EquipmentId int64     `json:"equipment_id"`// 设备管理ID
+		PrincipalId int64     `json:"principal_id"`// 负责人ID
+		CreateTime  string `json:"create_time"` // 创建时间
+		UpdateTime  string `json:"update_time"` // 更新时间
+	}
+
+	// 根据杆塔ID查询设备列表请求
+	ListEquipmentByTowerIdReq {
+		TowerId int64 `json:"tower_id"` // 杆塔ID
+	}
+
+	// 根据杆塔ID查询设备列表响应
+	ListEquipmentByTowerIdResp {
+		Equipments []TowerEquipment `json:"equipments"` // 设备列表
+	}
+
+	// 新增杆塔设备关联请求
+	CreateTowerEquipmentReq {
+		TowerId     int64 `json:"tower_id"`    // 杆塔ID
+		EquipmentId int64 `json:"equipment_id"`// 设备管理ID
+		PrincipalId int64 `json:"principal_id"`// 负责人ID
+	}
+
+	// 新增杆塔设备关联响应
+	CreateTowerEquipmentResp {
+		Id int64 `json:"id"` // 新增记录的主键ID
+	}
+
+	// 删除杆塔设备关联请求
+	DeleteTowerEquipmentReq {
+		Id int64 `json:"id"` // 主键ID
+	}
+
+	// 删除杆塔设备关联响应
+	DeleteTowerEquipmentResp {
+		Deleted bool `json:"deleted"` // 是否删除成功
+	}
+)
+
+@server(
+	group: towerequipment
+)
+service admin-api {
+	@handler listEquipmentByTowerId
+	get /api/tower-equipment/list (ListEquipmentByTowerIdReq) returns (ListEquipmentByTowerIdResp)
+
+	@handler createTowerEquipment
+	post /api/tower-equipment (CreateTowerEquipmentReq) returns (CreateTowerEquipmentResp)
+
+	@handler deleteTowerEquipment
+	delete /api/tower-equipment/:id (DeleteTowerEquipmentReq) returns (DeleteTowerEquipmentResp)
+}

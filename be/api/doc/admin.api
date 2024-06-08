@@ -1,4 +1,8 @@
-import "base/basestation.api"
+// import "base/basestation.api"
+import "tower/tower.api"
+import "tower/towerequiment.api"
+import "equipment/equipmentclass.api"
+import "equipment/equipmentdetail.api"
 
 info(
 	desc: "go zero admin"

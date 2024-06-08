@@ -1,0 +1,95 @@
+info(
+	title: "设备分类服务"
+	desc: "提供设备分类的增删改查接口"
+	author: "ACPilot"
+)
+
+type (
+	// 设备分类
+	EquipmentClass {
+		Id     int64  `json:"id"`     // 主键ID
+		Name   string `json:"name"`   // 名称
+		Code   string `json:"code"`   // 代码
+		Status int    `json:"status"` // 状态
+		PId    int64  `json:"p_id"`   // 父类ID
+	}
+
+	// 创建设备分类请求
+	CreateEquipmentClassReq {
+		Name   string `json:"name"`   // 名称
+		Code   string `json:"code"`   // 代码
+		Status int    `json:"status"` // 状态
+		PId    int64  `json:"p_id"`   // 父类ID
+	}
+
+	// 创建设备分类响应
+	CreateEquipmentClassResp {
+		Id int64 `json:"id"` // 主键ID
+	}
+
+	// 更新设备分类请求
+	UpdateEquipmentClassReq {
+		Id     int64  `json:"id"`     // 主键ID
+		Name   string `json:"name"`   // 名称
+		Code   string `json:"code"`   // 代码
+		Status int    `json:"status"` // 状态
+		PId    int64  `json:"p_id"`   // 父类ID
+	}
+
+	// 更新设备分类响应
+	UpdateEquipmentClassResp {
+		Updated bool `json:"updated"` // 是否更新成功
+	}
+
+	// 获取设备分类请求
+	GetEquipmentClassReq {
+		Id int64 `path:"id"` // 主键ID
+	}
+
+	// 获取设备分类响应
+	GetEquipmentClassResp {
+		EquipmentClass EquipmentClass `json:"equipment_class"` // 设备分类
+	}
+
+	// 设备分类列表请求
+	ListEquipmentClassesReq {
+		Page     int64 `json:"page"`      // 页码
+		PageSize int64 `json:"page_size"` // 每页数量
+	}
+
+	// 设备分类列表响应
+	ListEquipmentClassesResp {
+		EquipmentClasses []EquipmentClass `json:"equipment_classes"` // 设备分类列表
+		Total            int64            `json:"total"`             // 总数
+	}
+
+	// 删除设备分类请求
+	DeleteEquipmentClassReq {
+		Id int64 `json:"id"` // 主键ID
+	}
+
+	// 删除设备分类响应
+	DeleteEquipmentClassResp {
+		Deleted bool `json:"deleted"` // 是否删除成功
+	}
+)
+
+@server(
+	group: equipment
+)
+service admin-api {
+	@handler createEquipmentClass
+	post /api/equipment-class (CreateEquipmentClassReq) returns (CreateEquipmentClassResp)
+
+	@handler updateEquipmentClass
+	put /api/equipment-class/:id (UpdateEquipmentClassReq) returns (UpdateEquipmentClassResp)
+
+	@handler getEquipmentClass
+	get /api/equipment-class/:id (GetEquipmentClassReq) returns (GetEquipmentClassResp)
+
+	@handler listEquipmentClasses
+	get /api/equipment-classes (ListEquipmentClassesReq) returns (ListEquipmentClassesResp)
+
+	@handler deleteEquipmentClass
+	delete /api/equipment-class/:id (DeleteEquipmentClassReq) returns (DeleteEquipmentClassResp)
+}
