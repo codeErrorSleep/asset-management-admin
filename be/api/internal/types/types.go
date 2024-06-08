@@ -52,7 +52,7 @@ type GetBaseStationResp struct {
 
 type ListBaseStationsReq struct {
 	Page      int64 `json:"page"`
-	PageSize int64 `json:"page_size"`
+	PageSizse int64 `json:"page_size"`
 }
 
 type ListBaseStationsResp struct {
