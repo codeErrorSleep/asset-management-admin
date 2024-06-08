@@ -1,11 +1,12 @@
 package equipmentdetail
 
 import (
-	"net/http"
-
 	"be/api/internal/logic/equipmentdetail"
 	"be/api/internal/svc"
 	"be/api/internal/types"
+	"be/api/response"
+	"net/http"
+
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
@@ -19,10 +20,6 @@ func DeleteEquipmentDetailHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 
 		l := equipmentdetail.NewDeleteEquipmentDetailLogic(r.Context(), svcCtx)
 		resp, err := l.DeleteEquipmentDetail(&req)
-		if err != nil {
-			httpx.ErrorCtx(r.Context(), w, err)
-		} else {
-			httpx.OkJsonCtx(r.Context(), w, resp)
-		}
+		response.Response(w, resp, err)
 	}
 }

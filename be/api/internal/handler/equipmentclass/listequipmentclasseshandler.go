@@ -6,6 +6,8 @@ import (
 	"be/api/internal/logic/equipmentclass"
 	"be/api/internal/svc"
 	"be/api/internal/types"
+	"be/api/response"
+
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
@@ -19,10 +21,6 @@ func ListEquipmentClassesHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 
 		l := equipmentclass.NewListEquipmentClassesLogic(r.Context(), svcCtx)
 		resp, err := l.ListEquipmentClasses(&req)
-		if err != nil {
-			httpx.ErrorCtx(r.Context(), w, err)
-		} else {
-			httpx.OkJsonCtx(r.Context(), w, resp)
-		}
+		response.Response(w, resp, err)
 	}
 }

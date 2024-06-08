@@ -6,6 +6,8 @@ import (
 	"be/api/internal/logic/tower"
 	"be/api/internal/svc"
 	"be/api/internal/types"
+	"be/api/response"
+
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
@@ -19,10 +21,6 @@ func DeleteTowerDetailHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 
 		l := tower.NewDeleteTowerDetailLogic(r.Context(), svcCtx)
 		resp, err := l.DeleteTowerDetail(&req)
-		if err != nil {
-			httpx.ErrorCtx(r.Context(), w, err)
-		} else {
-			httpx.OkJsonCtx(r.Context(), w, resp)
-		}
+		response.Response(w, resp, err)
 	}
 }
