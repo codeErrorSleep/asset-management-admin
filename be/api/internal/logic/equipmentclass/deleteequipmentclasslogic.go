@@ -26,5 +26,10 @@ func NewDeleteEquipmentClassLogic(ctx context.Context, svcCtx *svc.ServiceContex
 func (l *DeleteEquipmentClassLogic) DeleteEquipmentClass(req *types.DeleteEquipmentClassReq) (resp *types.DeleteEquipmentClassResp, err error) {
 	// todo: add your logic here and delete this line
 
+	err = l.svcCtx.TEquipmentClassModel.Delete(l.ctx, req.Id)
+	if err != nil {
+		return nil, err
+	}
+
 	return
 }

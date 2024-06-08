@@ -2,9 +2,12 @@ package equipmentclass
 
 import (
 	"context"
+	"database/sql"
+	"errors"
 
 	"be/api/internal/svc"
 	"be/api/internal/types"
+	"be/model/mysql"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -24,7 +27,21 @@ func NewCreateEquipmentClassLogic(ctx context.Context, svcCtx *svc.ServiceContex
 }
 
 func (l *CreateEquipmentClassLogic) CreateEquipmentClass(req *types.CreateEquipmentClassReq) (resp *types.CreateEquipmentClassResp, err error) {
-	// todo: add your logic here and delete this line
+	insertData := mysql.TEquipmentClass{
+		Name:   req.Name,
+		Code:   req.Code,
+		Status: int64(req.Status),
+		PId:    sql.NullInt64{Int64: req.PId, Valid: true},
+	}
+
+	sqlResult, err := l.svcCtx.TEquipmentClassModel.Insert(l.ctx, &insertData)
+	if err != nil {
+		return nil, err
+	}
+
+	if rowAffected, _ := sqlResult.RowsAffected(); rowAffected == 0 {
+		return nil, errors.New("insert failed")
+	}
 
 	return
 }

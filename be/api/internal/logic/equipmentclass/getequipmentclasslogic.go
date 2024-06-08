@@ -24,7 +24,6 @@ func NewGetEquipmentClassLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 
 func (l *GetEquipmentClassLogic) GetEquipmentClass(req *types.GetEquipmentClassReq) (resp *types.GetEquipmentClassResp, err error) {
-	// todo: add your logic here and delete this line
 
 	return
 }
