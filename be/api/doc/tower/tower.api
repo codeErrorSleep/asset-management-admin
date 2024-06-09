@@ -1,0 +1,108 @@
+info(
+	title: "杆塔详情服务"
+	desc: "提供杆塔详情的增删改查接口"
+	author: "ACPilot"
+)
+
+type (
+	// 杆塔详情
+	TowerDetail {
+		Id           int64     `json:"id"`            // 主键ID
+		SubitemId    int64     `json:"subitem_id"`    // 子项ID
+		Name         string    `json:"name"`          // 基站名称
+		Address      string    `json:"address"`       // 详细地区
+		Image        string    `json:"image"`         // 基站图片，考虑是否支持展示多张
+		CheckStatus  string    `json:"check_status"`  // 检查状态
+		CheckTime    string `json:"check_time"`    // 检查时间
+		CheckUserId  int64     `json:"check_user_id"` // 检查人ID
+		PrincipalId  int64     `json:"principal_id"`  // 负责人ID
+		PlanTime     string `json:"plan_time"`     // 计划检查时间
+		CreateTime   string `json:"create_time"`   // 创建时间
+		UpdateTime   string `json:"update_time"`   // 更新时间
+	}
+
+	// 创建杆塔详情请求
+	CreateTowerDetailReq {
+		SubitemId   int64     `json:"subitem_id"`   // 子项ID
+		Name        string    `json:"name"`         // 基站名称
+		Address     string    `json:"address"`      // 详细地区
+		Image       string    `json:"image"`        // 基站图片
+		PlanTime    string `json:"plan_time"`    // 计划检查时间
+	}
+
+	// 创建杆塔详情响应
+	CreateTowerDetailResp {
+		Id int64 `json:"id"` // 主键ID
+	}
+
+	// 更新杆塔详情请求
+	UpdateTowerDetailReq {
+		Id          int64     `json:"id"`           // 主键ID
+		SubitemId   int64     `json:"subitem_id"`   // 子项ID
+		Name        string    `json:"name"`         // 基站名称
+		Address     string    `json:"address"`      // 详细地区
+		Image       string    `json:"image"`        // 基站图片
+		CheckStatus string    `json:"check_status"` // 检查状态
+		CheckTime   string `json:"check_time"`   // 检查时间
+		CheckUserId int64     `json:"check_user_id"`// 检查人ID
+		PrincipalId int64     `json:"principal_id"` // 负责人ID
+		PlanTime    string `json:"plan_time"`    // 计划检查时间
+	}
+
+	// 更新杆塔详情响应
+	UpdateTowerDetailResp {
+		Updated bool `json:"updated"` // 是否更新成功
+	}
+
+	// 获取杆塔详情请求
+	GetTowerDetailReq {
+		Id int64 `path:"id"` // 主键ID
+	}
+
+	// 获取杆塔详情响应
+	GetTowerDetailResp {
+		TowerDetail TowerDetail `json:"tower_detail"` // 杆塔详情
+	}
+
+	// 杆塔详情列表请求
+	ListTowerDetailsReq {
+		Page     int64 `json:"page"`      // 页码
+		PageSize int64 `json:"page_size"` // 每页数量
+	}
+
+	// 杆塔详情列表响应
+	ListTowerDetailsResp {
+		TowerDetails []TowerDetail `json:"tower_details"` // 杆塔详情列表
+		Total        int64        `json:"total"`         // 总数
+	}
+
+	// 删除杆塔详情请求
+	DeleteTowerDetailReq {
+		Id int64 `json:"id"` // 主键ID
+	}
+
+	// 删除杆塔详情响应
+	DeleteTowerDetailResp {
+		Deleted bool `json:"deleted"` // 是否删除成功
+	}
+)
+
+@server(
+	group: tower
+)
+service admin-api {
+	@handler createTowerDetail
+	post /api/tower-detail (CreateTowerDetailReq) returns (CreateTowerDetailResp)
+
+	@handler updateTowerDetail
+	put /api/tower-detail/:id (UpdateTowerDetailReq) returns (UpdateTowerDetailResp)
+
+	@handler getTowerDetail
+	get /api/tower-detail/:id (GetTowerDetailReq) returns (GetTowerDetailResp)
+
+	@handler listTowerDetails
+	get /api/tower-details (ListTowerDetailsReq) returns (ListTowerDetailsResp)
+
+	@handler deleteTowerDetail
+	delete /api/tower-detail/:id (DeleteTowerDetailReq) returns (DeleteTowerDetailResp)
+}

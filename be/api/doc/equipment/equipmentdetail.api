@@ -1,0 +1,106 @@
+info(
+	title: "设备详情服务"
+	desc: "提供设备详情的增删改查接口"
+	author: "ACPilot"
+)
+
+type (
+	// 设备详情
+	EquipmentDetail {
+		Id            int64  `json:"id"`            // 主键ID
+		ClassId       int64  `json:"class_id"`      // 分类ID
+		Name          string `json:"name"`          // 设备名称
+		Type          string `json:"type"`          // 设备类型
+		SpecificModel string `json:"specific_model"`// 具体型号
+		Unit          string `json:"unit"`          // 单位
+		Status        string `json:"status"`        // 状态
+		Image         string `json:"image"`         // 图片
+		CreateUserId  int64  `json:"create_user_id"`// 创建用户ID
+	}
+
+	// 创建设备详情请求
+	CreateEquipmentDetailReq {
+		ClassId       int64  `json:"class_id"`      // 分类ID
+		Name          string `json:"name"`          // 设备名称
+		Type          string `json:"type"`          // 设备类型
+		SpecificModel string `json:"specific_model"`// 具体型号
+		Unit          string `json:"unit"`          // 单位
+		Status        string `json:"status"`        // 状态
+		Image         string `json:"image"`         // 图片
+		CreateUserId  int64  `json:"create_user_id"`// 创建用户ID
+	}
+
+	// 创建设备详情响应
+	CreateEquipmentDetailResp {
+		Id int64 `json:"id"` // 主键ID
+	}
+
+	// 更新设备详情请求
+	UpdateEquipmentDetailReq {
+		Id            int64  `json:"id"`            // 主键ID
+		ClassId       int64  `json:"class_id"`      // 分类ID
+		Name          string `json:"name"`          // 设备名称
+		Type          string `json:"type"`          // 设备类型
+		SpecificModel string `json:"specific_model"`// 具体型号
+		Unit          string `json:"unit"`          // 单位
+		Status        string `json:"status"`        // 状态
+		Image         string `json:"image"`         // 图片
+	}
+
+	// 更新设备详情响应
+	UpdateEquipmentDetailResp {
+		Updated bool `json:"updated"` // 是否更新成功
+	}
+
+	// 获取设备详情请求
+	GetEquipmentDetailReq {
+		Id int64 `path:"id"` // 主键ID
+	}
+
+	// 获取设备详情响应
+	GetEquipmentDetailResp {
+		EquipmentDetail EquipmentDetail `json:"equipment_detail"` // 设备详情
+	}
+
+	// 设备详情列表请求
+	ListEquipmentDetailsReq {
+		Page     int64 `json:"page"`      // 页码
+		PageSize int64 `json:"page_size"` // 每页数量
+	}
+
+	// 设备详情列表响应
+	ListEquipmentDetailsResp {
+		EquipmentDetails []EquipmentDetail `json:"equipment_details"` // 设备详情列表
+		Total            int64             `json:"total"`             // 总数
+	}
+
+	// 删除设备详情请求
+	DeleteEquipmentDetailReq {
+		Id int64 `json:"id"` // 主键ID
+	}
+
+	// 删除设备详情响应
+	DeleteEquipmentDetailResp {
+		Deleted bool `json:"deleted"` // 是否删除成功
+	}
+)
+
+@server(
+	group: equipmentdetail
+)
+service admin-api {
+	@handler createEquipmentDetail
+	post /api/equipment-detail (CreateEquipmentDetailReq) returns (CreateEquipmentDetailResp)
+
+	@handler updateEquipmentDetail
+	put /api/equipment-detail/:id (UpdateEquipmentDetailReq) returns (UpdateEquipmentDetailResp)
+
+	@handler getEquipmentDetail
+	get /api/equipment-detail/:id (GetEquipmentDetailReq) returns (GetEquipmentDetailResp)
+
+	@handler listEquipmentDetails
+	get /api/equipment-details (ListEquipmentDetailsReq) returns (ListEquipmentDetailsResp)
+
+	@handler deleteEquipmentDetail
+	delete /api/equipment-detail/:id (DeleteEquipmentDetailReq) returns (DeleteEquipmentDetailResp)
+}

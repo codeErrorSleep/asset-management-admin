@@ -46,8 +46,8 @@ CREATE TABLE `t_tower_detail` (
 `check_user_id` INT COMMENT '检查人ID',
 `principal_id` INT COMMENT '负责人ID',
 `plan_time` DATETIME COMMENT '计划检查时间',
-`create_time` DATETIME NOT NULL COMMENT '创建时间',
-`update_time` DATETIME NOT NULL COMMENT '更新时间',
+`create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+`update_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='杆塔详情表';
 
