@@ -1,4 +1,5 @@
 import Sortable from "sortablejs";
+import { transformI18n } from "@/plugins/i18n";
 import { useEpThemeStoreHook } from "@/store/modules/epTheme";
 import {
   type PropType,
@@ -17,11 +18,11 @@ import {
   getKeyList
 } from "@pureadmin/utils";
 
-import DragIcon from "./svg/drag.svg?component";
-import ExpandIcon from "./svg/expand.svg?component";
-import RefreshIcon from "./svg/refresh.svg?component";
-import SettingIcon from "./svg/settings.svg?component";
-import CollapseIcon from "./svg/collapse.svg?component";
+import DragIcon from "@/assets/table-bar/drag.svg?component";
+import ExpandIcon from "@/assets/table-bar/expand.svg?component";
+import RefreshIcon from "@/assets/table-bar/refresh.svg?component";
+import SettingIcon from "@/assets/table-bar/settings.svg?component";
+import CollapseIcon from "@/assets/table-bar/collapse.svg?component";
 
 const props = {
   /** 头部最左边的标题 */
@@ -139,7 +140,9 @@ export default defineComponent({
     }
 
     function handleCheckColumnListChange(val: boolean, label: string) {
-      dynamicColumns.value.filter(item => item.label === label)[0].hide = !val;
+      dynamicColumns.value.filter(
+        item => transformI18n(item.label) === transformI18n(label)
+      )[0].hide = !val;
     }
 
     async function onReset() {
@@ -212,7 +215,9 @@ export default defineComponent({
     };
 
     const isFixedColumn = (label: string) => {
-      return dynamicColumns.value.filter(item => item.label === label)[0].fixed
+      return dynamicColumns.value.filter(
+        item => transformI18n(item.label) === transformI18n(label)
+      )[0].fixed
         ? true
         : false;
     };
@@ -339,10 +344,10 @@ export default defineComponent({
                                 }
                               >
                                 <span
-                                  title={item}
+                                  title={transformI18n(item)}
                                   class="inline-block w-[120px] truncate hover:text-text_color_primary"
                                 >
-                                  {item}
+                                  {transformI18n(item)}
                                 </span>
                               </el-checkbox>
                             </div>
