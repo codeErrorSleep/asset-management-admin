@@ -3,7 +3,7 @@
  - @LastEditor: Ronnie Zhang
  - @LastEditTime: 2023/12/05 21:28:22
  - @Email: zclzone@outlook.com
- - Copyright © 2023 Ronnie Zhang(大脸怪) | https://isme.top
+ -  | https://isme.top
  --------------------------------->
 
 <template>
@@ -151,11 +151,11 @@
       </n-card>
     </div>
 
-    <n-card class="mt-12" title="⚡️ 趋势" segmented>
+    <!-- <n-card class="mt-12" title="⚡️ 趋势" segmented>
       <div class="h-400">
         <VChart :option="trendOption" autoresize />
       </div>
-    </n-card>
+    </n-card> -->
   </AppPage>
 </template>
 

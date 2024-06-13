@@ -3,7 +3,7 @@
  * @LastEditor: Ronnie Zhang
  * @LastEditTime: 2023/12/13 20:54:36
  * @Email: zclzone@outlook.com
- * Copyright © 2023 Ronnie Zhang(大脸怪) | https://isme.top
+ *  | https://isme.top
  **********************************/
 
 export const defaultLayout = 'normal'
@@ -24,13 +24,81 @@ export const naiveThemeOverrides = {
 
 export const basePermissions = [
   {
-    code: 'ExternalLink',
-    name: '外链(可内嵌打开)',
+    code: 'base-project',
+    name: '配网项目管理',
     type: 'MENU',
     icon: 'i-fe:external-link',
-    order: 98,
+    order: 0,
     enable: true,
-    show: true
+    show: true,
+    children: [
+      {
+        code: 'tower-detail',
+        name: '杆塔管理',
+        type: 'MENU',
+        path: '/base/icon',
+        icon: 'i-me:docs',
+        order: 1,
+        enable: true,
+        show: true,
+        component: "/src/views/base/unocss-icon.vue",
+      },
+      {
+        code: 'subitem-detail',
+        name: '子项管理',
+        type: 'MENU',
+        path: '/base/components',
+        icon: 'i-me:docs',
+        order: 1,
+        enable: true,
+        show: true,
+        component: "/src/views/base/unocss-icon.vue",
+      } ,
+      {
+        code: 'project-package',
+        name: '项目包管理',
+        type: 'MENU',
+        path: '/base/keep-alive',
+        icon: 'i-me:docs',
+        order: 1,
+        enable: true,
+        show: true,
+        component: "/src/views/base/unocss-icon.vue",
+      }  
+    ]
+  },
+  {
+    code: 'equipment-management',
+    name: '设备管理',
+    type: 'MENU',
+    icon: 'i-me:docs',
+    order: 0,
+    enable: true,
+    show: true,
+    children: [
+      {
+        code: 'equipment-detail',
+        name: '设备管理',
+        type: 'MENU',
+        path: '/base/components',
+        icon: 'i-fe:tool',
+        order: 1,
+        enable: true,
+        show: true,
+        component: "/src/views/equipment/detail.vue",
+      },
+      {
+        code: 'equipment-class',
+        name: '设备分类',
+        type: 'MENU',
+        path: '/base/components',
+        icon: 'i-me:docs',
+        order: 2,
+        enable: true,
+        show: true,
+        component: "/src/views/equipment/class.vue",
+      }
+    ]
   },
   {
     code: 'ExternalLink',

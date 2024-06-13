@@ -3,7 +3,7 @@
  * @LastEditor: Ronnie Zhang
  * @LastEditTime: 2024/01/13 17:41:26
  * @Email: zclzone@outlook.com
- * Copyright © 2023 Ronnie Zhang(大脸怪) | https://isme.top
+ *  | https://isme.top
  **********************************/
 
 // 获取元素的CSS样式
