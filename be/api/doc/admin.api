@@ -3,6 +3,7 @@ import "tower/tower.api"
 import "tower/towerequiment.api"
 import "equipment/equipmentclass.api"
 import "equipment/equipmentdetail.api"
+import "system/user.api"
 
 info(
 	desc: "go zero admin"

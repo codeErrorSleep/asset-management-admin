@@ -8,6 +8,7 @@ import (
 	equipmentdetail "be/api/internal/handler/equipmentdetail"
 	tower "be/api/internal/handler/tower"
 	towerequipment "be/api/internal/handler/towerequipment"
+	user "be/api/internal/handler/user"
 	"be/api/internal/svc"
 
 	"github.com/zeromicro/go-zero/rest"
@@ -120,6 +121,131 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Method:  http.MethodDelete,
 				Path:    "/api/equipment-detail/:id",
 				Handler: equipmentdetail.DeleteEquipmentDetailHandler(serverCtx),
+			},
+		},
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/auth/login",
+				Handler: user.UserLoginHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/auth/captcha",
+				Handler: user.UserCaptchaHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/auth/logout",
+				Handler: user.UserLogoutHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/auth/password",
+				Handler: user.UserPasswordHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/user",
+				Handler: user.UserListHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/user",
+				Handler: user.UserAddHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodDelete,
+				Path:    "/user/:id",
+				Handler: user.UserDeleteHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPatch,
+				Path:    "/user/password/reset/:id",
+				Handler: user.UserUpdatePasswordHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPatch,
+				Path:    "/user/:id",
+				Handler: user.UserUpdateHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPatch,
+				Path:    "/user/profile/:id",
+				Handler: user.UserProfileHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/user/detail",
+				Handler: user.UserDetailHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/role",
+				Handler: user.RoleListHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/role",
+				Handler: user.RoleAddHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPatch,
+				Path:    "/role/:id",
+				Handler: user.RoleUpdateHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodDelete,
+				Path:    "/role/:id",
+				Handler: user.RoleDeleteHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPatch,
+				Path:    "/role/users/add/:id",
+				Handler: user.RoleAddUserHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPatch,
+				Path:    "/role/users/remove/:id",
+				Handler: user.RoleRemoveUserHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/role/page",
+				Handler: user.RoleListPageHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/role/permissions/tree",
+				Handler: user.RolePermissionsTreeHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/permission",
+				Handler: user.PermissionAddHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPatch,
+				Path:    "/permission/:id",
+				Handler: user.PermissionPatchHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodDelete,
+				Path:    "/permission/:id",
+				Handler: user.PermissionDeleteHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/permission/tree",
+				Handler: user.PermissionListTreeHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/permission/menu/tree",
+				Handler: user.PermissionMenuTreeHandler(serverCtx),
 			},
 		},
 	)
