@@ -75,17 +75,51 @@ type AddPermissionReq struct {
 type PatchPermissionReq struct {
   Id        int64   `path:"id"`
   Type      string  `json:"type"`
-  ParentId  int64  `json:"parentId,omitempty"`
+  ParentId  int64  `json:"parentId,optional"`
   Name      string  `json:"name"`
   Code      string  `json:"code"`
-  Path      string  `json:"path,omitempty"`
-  Icon      string  `json:"icon,omitempty"`
-  Layout    string  `json:"layout,omitempty"`
-  Component string  `json:"component,omitempty"`
+  Path      string  `json:"path,optional"`
+  Icon      string  `json:"icon,optional"`
+  Layout    string  `json:"layout,optional"`
+  Component string  `json:"component,optional"`
   Show      int64   `json:"show"`
   Enable    int64   `json:"enable"`
   KeepAlive int64   `json:"keepAlive"`
   Order     int64   `json:"order"`
+}
+
+type UserListItem struct {
+	ID         int       `json:"id"`
+	Username   string    `json:"username"`
+	Enable     bool       `json:"enable"`
+	CreateTime string `json:"createTime"`
+	UpdateTime string `json:"updateTime"`
+	Gender   int    `json:"gender"`
+	Avatar   string `json:"avatar"`
+	Address  string `json:"address"`
+	Email    string `json:"email"`
+  	Roles []Role `json:"roles"`
+}
+
+type Role struct {
+	ID     int    `json:"id"`
+	Code   string `json:"code"`
+	Name   string `json:"name"`
+	Enable bool    `json:"enable"`
+}
+
+
+type UserListRes struct {
+	PageData []UserListItem `json:"pageData"`
+	Total    int64            `json:"total"`
+}
+
+type UserListReq struct {
+	Gender   string `form:"gender,optional"`
+	Enable   string `form:"enable,optional"`
+	Username string `form:"username,optional"`
+	PageNo   string `form:"pageNo"`
+	PageSize string `form:"pageSize"`
 }
 
 @server(
@@ -105,7 +139,7 @@ service admin-api{
   post /auth/password (AuthPwReq)
 
   @handler UserList
-  get /user ()
+  get /user (UserListReq) returns (UserListRes)
 
   @handler UserAdd
   post /user (AddUserReq)

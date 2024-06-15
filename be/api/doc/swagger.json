@@ -904,11 +904,48 @@
         "responses": {
           "200": {
             "description": "A successful response.",
-            "schema": {}
+            "schema": {
+              "$ref": "#/definitions/UserListRes"
+            }
           }
         },
+        "parameters": [
+          {
+            "name": "gender",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "enable",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "username",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "tags": [
           "user"
+        ],
+        "consumes": [
+          "multipart/form-data"
         ]
       },
       "post": {
@@ -1965,6 +2002,32 @@
       },
       "title": "PatchUserReq"
     },
+    "Role": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "enable": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      },
+      "title": "Role",
+      "required": [
+        "id",
+        "code",
+        "name",
+        "enable"
+      ]
+    },
     "TowerDetail": {
       "type": "object",
       "properties": {
@@ -2267,6 +2330,105 @@
       "title": "UpdateTowerDetailResp",
       "required": [
         "updated"
+      ]
+    },
+    "UserListItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "username": {
+          "type": "string"
+        },
+        "enable": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "createTime": {
+          "type": "string"
+        },
+        "updateTime": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Role"
+          }
+        }
+      },
+      "title": "UserListItem",
+      "required": [
+        "id",
+        "username",
+        "enable",
+        "createTime",
+        "updateTime",
+        "gender",
+        "avatar",
+        "address",
+        "email",
+        "roles"
+      ]
+    },
+    "UserListReq": {
+      "type": "object",
+      "properties": {
+        "gender": {
+          "type": "string"
+        },
+        "enable": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "pageNo": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "string"
+        }
+      },
+      "title": "UserListReq",
+      "required": [
+        "pageNo",
+        "pageSize"
+      ]
+    },
+    "UserListRes": {
+      "type": "object",
+      "properties": {
+        "pageData": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserListItem"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "UserListRes",
+      "required": [
+        "pageData",
+        "total"
       ]
     }
   },

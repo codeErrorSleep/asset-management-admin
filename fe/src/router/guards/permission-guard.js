@@ -31,6 +31,7 @@ export function createPermissionGuard(router) {
 
     const userStore = useUserStore()
     const permissionStore = usePermissionStore()
+    // 获取不到用户内容的逻辑
     if (!userStore.userInfo) {
       console.log('获取用户信息和权限')
       const [user, permissions] = await Promise.all([getUserInfo(), getPermissions()])
