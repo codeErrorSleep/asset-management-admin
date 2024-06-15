@@ -16,12 +16,12 @@ export function createPermissionGuard(router) {
     const authStore = useAuthStore()
     const token = authStore.accessToken
 
-    /** 没有token */
-    if (!token) {
-      if (WHITE_LIST.includes(to.path))
-        return true
-      return { path: 'login', query: { ...to.query, redirect: to.path } }
-    }
+    // /** 没有token */
+    // if (!token) {
+    //   if (WHITE_LIST.includes(to.path))
+    //     return true
+    //   return { path: 'login', query: { ...to.query, redirect: to.path } }
+    // }
 
     // 有token的情况
     if (to.path === '/login')
@@ -32,7 +32,10 @@ export function createPermissionGuard(router) {
     const userStore = useUserStore()
     const permissionStore = usePermissionStore()
     if (!userStore.userInfo) {
+      console.log('获取用户信息和权限')
       const [user, permissions] = await Promise.all([getUserInfo(), getPermissions()])
+      console.log("aaa:"+permissionStore)
+      console.log(user)
       userStore.setUser(user)
       permissionStore.setPermissions(permissions)
       const routeComponents = import.meta.glob('@/views/**/*.vue')

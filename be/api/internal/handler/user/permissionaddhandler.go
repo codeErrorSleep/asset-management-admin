@@ -5,8 +5,9 @@ import (
 	"be/api/internal/svc"
 	"be/api/internal/types"
 	"be/api/response"
-	"github.com/zeromicro/go-zero/rest/httpx"
 	"net/http"
+
+	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
 func PermissionAddHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {

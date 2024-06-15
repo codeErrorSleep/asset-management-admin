@@ -5,9 +5,8 @@ import (
 	"be/api/internal/svc"
 	"be/api/internal/types"
 	"be/api/response"
-	"net/http"
-
 	"github.com/zeromicro/go-zero/rest/httpx"
+	"net/http"
 )
 
 func RoleAddUserHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {

@@ -578,9 +578,6 @@
         ],
         "tags": [
           "user"
-        ],
-        "consumes": [
-          "multipart/form-data"
         ]
       }
     },

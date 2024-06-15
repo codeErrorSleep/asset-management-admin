@@ -232,9 +232,9 @@ type DeleteEquipmentDetailResp struct {
 }
 
 type LoginReq struct {
-	Username string `form:"username"`
-	Password string `form:"password"`
-	Captcha  string `form:"captcha"`
+	Username string `json:"username"`
+	Password string `json:"password"`
+	Captcha  string `json:"captcha"`
 }
 
 type AuthPwReq struct {

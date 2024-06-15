@@ -25,6 +25,5 @@ func NewUserLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UserLog
 
 func (l *UserLoginLogic) UserLogin(req *types.LoginReq) error {
 	// todo: add your logic here and delete this line
-
 	return nil
 }
