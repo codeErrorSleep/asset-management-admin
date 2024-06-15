@@ -230,3 +230,93 @@ type DeleteEquipmentDetailReq struct {
 type DeleteEquipmentDetailResp struct {
 	Deleted bool `json:"deleted"` // 是否删除成功
 }
+
+type LoginReq struct {
+	Username string `form:"username"`
+	Password string `form:"password"`
+	Captcha  string `form:"captcha"`
+}
+
+type AuthPwReq struct {
+	NewPassword string `form:"newPassword"`
+	OldPassword string `form:"oldPassword"`
+}
+
+type PatchUserReq struct {
+	Id       int64   `path:"id"`
+	Enable   bool    `json:"enable,omitempty"`
+	RoleIds  []int64 `json:"roleIds,omitempty"`
+	Password string  `json:"password,omitempty"`
+	Username string  `json:"username,omitempty"`
+}
+
+type PatchProfileUserReq struct {
+	Id       int64  `path:"id"`
+	Gender   int64  `json:"gender"`
+	NickName string `json:"nickName"`
+	Address  string `json:"address"`
+	Email    string `json:"email"`
+}
+
+type EnableRoleReq struct {
+	Enable bool  `json:"enable"`
+	Id     int64 `path:"id"`
+}
+
+type AddUserReq struct {
+	Username string  `json:"username"`
+	Password string  `json:"password"`
+	Enable   bool    `json:"enable"`
+	RoleIds  []int64 `json:"roleIds"`
+}
+
+type AddRoleReq struct {
+	Code          string  `json:"code"`
+	Enable        bool    `json:"enable"`
+	Name          string  `json:"name"`
+	PermissionIds []int64 `json:"permissionIds"`
+}
+
+type PatchRoleReq struct {
+	Id            int64   `path:"id"`
+	Code          string  `json:"code,omitempty"`
+	Enable        bool    `json:"enable,omitempty"`
+	Name          string  `json:"name,omitempty"`
+	PermissionIds []int64 `json:"permissionIds,omitempty"`
+}
+
+type PatchRoleOperateUserReq struct {
+	Id      int64   `path:"id"`
+	UserIds []int64 `json:"userIds"`
+}
+
+type AddPermissionReq struct {
+	Type      string `json:"type"`
+	ParentId  int64  `json:"parentId,omitempty"`
+	Name      string `json:"name"`
+	Code      string `json:"code"`
+	Path      string `json:"path,omitempty"`
+	Icon      string `json:"icon,omitempty"`
+	Layout    string `json:"layout,omitempty"`
+	Component string `json:"component,omitempty"`
+	Show      bool   `json:"show"`
+	Enable    bool   `json:"enable"`
+	KeepAlive bool   `json:"keepAlive"`
+	Order     int64  `json:"order"`
+}
+
+type PatchPermissionReq struct {
+	Id        int64  `path:"id"`
+	Type      string `json:"type"`
+	ParentId  int64  `json:"parentId,omitempty"`
+	Name      string `json:"name"`
+	Code      string `json:"code"`
+	Path      string `json:"path,omitempty"`
+	Icon      string `json:"icon,omitempty"`
+	Layout    string `json:"layout,omitempty"`
+	Component string `json:"component,omitempty"`
+	Show      int64  `json:"show"`
+	Enable    int64  `json:"enable"`
+	KeepAlive int64  `json:"keepAlive"`
+	Order     int64  `json:"order"`
+}
