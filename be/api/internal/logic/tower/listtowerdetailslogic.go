@@ -2,6 +2,8 @@ package tower
 
 import (
 	"context"
+	"encoding/json"
+	"strconv"
 
 	"be/api/internal/svc"
 	"be/api/internal/types"
@@ -24,8 +26,16 @@ func NewListTowerDetailsLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 }
 
 func (l *ListTowerDetailsLogic) ListTowerDetails(req *types.ListTowerDetailsReq) (resp *types.ListTowerDetailsResp, err error) {
+	pageNo, err := strconv.ParseInt(req.PageNo, 10, 64)
+	if err != nil {
+		return nil, err
+	}
+	pageSize, err := strconv.ParseInt(req.PageSize, 10, 64)
+	if err != nil {
+		return nil, err
+	}
 
-	dataList, err := l.svcCtx.TTowerDetailModel.List(l.ctx, req.Page, req.PageSize)
+	dataList, err := l.svcCtx.TTowerDetailModel.List(l.ctx, pageNo, pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -37,7 +47,6 @@ func (l *ListTowerDetailsLogic) ListTowerDetails(req *types.ListTowerDetailsReq)
 			Name:        data.Name,
 			SubitemId:   data.SubitemId,
 			Address:     data.Address,
-			Image:       data.Image.String,
 			CheckStatus: data.CheckStatus.String,
 			CheckTime:   data.CheckTime.Time.String(),
 			CheckUserId: data.CheckUserId.Int64,
@@ -46,10 +55,16 @@ func (l *ListTowerDetailsLogic) ListTowerDetails(req *types.ListTowerDetailsReq)
 			CreateTime:  data.CreateTime.Format("2006-01-02 15:04:05"),
 			UpdateTime:  data.UpdateTime.Format("2006-01-02 15:04:05"),
 		}
+		towerDetail.Image = make([]string, 0)
+		if len(data.Image.String) > 0 {
+			err = json.Unmarshal([]byte(data.Image.String), &towerDetail.Image)
+			logx.Error(err)
+		}
+
 		towerDetails = append(towerDetails, towerDetail)
 	}
 	resp = &types.ListTowerDetailsResp{
-		TowerDetails: towerDetails,
+		PageData: towerDetails,
 	}
 
 	return

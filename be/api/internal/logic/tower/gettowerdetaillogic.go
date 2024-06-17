@@ -2,6 +2,7 @@ package tower
 
 import (
 	"context"
+	"encoding/json"
 
 	"be/api/internal/svc"
 	"be/api/internal/types"
@@ -35,7 +36,6 @@ func (l *GetTowerDetailLogic) GetTowerDetail(req *types.GetTowerDetailReq) (resp
 		SubitemId:   towerDetail.SubitemId,
 		Name:        towerDetail.Name,
 		Address:     towerDetail.Address,
-		Image:       towerDetail.Image.String,
 		CheckStatus: towerDetail.CheckStatus.String,
 		CheckTime:   towerDetail.CheckTime.Time.Format("2006-01-02 15:04:05"),
 		CheckUserId: towerDetail.CheckUserId.Int64,
@@ -43,6 +43,11 @@ func (l *GetTowerDetailLogic) GetTowerDetail(req *types.GetTowerDetailReq) (resp
 		PlanTime:    towerDetail.PlanTime.Time.Format("2006-01-02 15:04:05"),
 		CreateTime:  towerDetail.CreateTime.Format("2006-01-02 15:04:05"),
 		UpdateTime:  towerDetail.UpdateTime.Format("2006-01-02 15:04:05"),
+	}
+	respTowerDetail.Image = make([]string, 0)
+	if len(towerDetail.Image.String) > 0 {
+		err = json.Unmarshal([]byte(towerDetail.Image.String), &respTowerDetail.Image)
+		logx.Error(err)
 	}
 
 	resp = &types.GetTowerDetailResp{

@@ -436,24 +436,23 @@
         },
         "parameters": [
           {
-            "name": "page",
-            "description": " 页码",
+            "name": "pageNo",
             "in": "query",
             "required": true,
-            "type": "integer",
-            "format": "int64"
+            "type": "string"
           },
           {
-            "name": "page_size",
-            "description": " 每页数量",
+            "name": "pageSize",
             "in": "query",
             "required": true,
-            "type": "integer",
-            "format": "int64"
+            "type": "string"
           }
         ],
         "tags": [
           "tower"
+        ],
+        "consumes": [
+          "multipart/form-data"
         ]
       }
     },
@@ -1800,27 +1799,23 @@
     "ListTowerDetailsReq": {
       "type": "object",
       "properties": {
-        "page": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 页码"
+        "pageNo": {
+          "type": "string"
         },
-        "page_size": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 每页数量"
+        "pageSize": {
+          "type": "string"
         }
       },
       "title": "ListTowerDetailsReq",
       "required": [
-        "page",
-        "page_size"
+        "pageNo",
+        "pageSize"
       ]
     },
     "ListTowerDetailsResp": {
       "type": "object",
       "properties": {
-        "tower_details": {
+        "pageData": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/TowerDetail"
@@ -1835,7 +1830,7 @@
       },
       "title": "ListTowerDetailsResp",
       "required": [
-        "tower_details",
+        "pageData",
         "total"
       ]
     },
@@ -2050,7 +2045,10 @@
           "description": " 详细地区"
         },
         "image": {
-          "type": "string",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
           "description": " 基站图片，考虑是否支持展示多张"
         },
         "check_status": {

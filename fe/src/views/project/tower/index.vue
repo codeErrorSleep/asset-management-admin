@@ -1,11 +1,3 @@
-<!--------------------------------
- - @Author: Ronnie Zhang
- - @LastEditor: Ronnie Zhang
- - @LastEditTime: 2023/12/05 21:29:56
- - @Email: zclzone@outlook.com
- -  | https://isme.top
- --------------------------------->
-
 <template>
   <CommonPage>
     <template #action>
@@ -14,8 +6,7 @@
         创建新杆塔
       </NButton>
     </template>
-
-    <MeCrud ref="$table" v-model:query-items="queryItems" :scroll-x="2500" :columns="columns" :get-data="api.read">
+    <MeCrud ref="$table" v-model:query-items="queryItems" :scroll-x="2000" :columns="columns" :get-data="api.read">
       <MeQueryItem label="项目包" :label-width="50">
         <n-input v-model:value="queryItems.username" type="text" placeholder="projectName" clearable />
       </MeQueryItem>
@@ -120,103 +111,68 @@ const {
   refresh: () => $table.value?.handleSearch(),
 })
 
-// create table t_tower_detail
-// (
-//     id            int auto_increment comment '主键ID'
-//         primary key,
-//     subitem_id    int                                not null comment '子项ID',
-//     name          varchar(255)                       not null comment '基站名称',
-//     address       varchar(255)                       not null comment '详细地区',
-//     image         text                               null comment '基站图片，考虑是否支持展示多张',
-//     check_status  varchar(50)                        null comment '检查状态',
-//     check_time    datetime                           null comment '检查时间',
-//     check_user_id int                                null comment '检查人ID',
-//     principal_id  int                                null comment '负责人ID',
-//     plan_time     datetime                           null comment '计划检查时间',
-//     create_time   datetime default CURRENT_TIMESTAMP not null comment '创建时间',
-//     update_time   datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间'
-// )
-//     comment '杆塔详情表';
-
 
 const columns = [
-  { title: 'id', key: 'username', width: 150, ellipsis: { tooltip: true } },
-  { title: '子项ID', key: 'username', width: 150, ellipsis: { tooltip: true } },
-  { title: '详细地区', key: 'username', width: 150, ellipsis: { tooltip: true } },
-  { title: '基站图片', key: 'username', width: 150, ellipsis: { tooltip: true } },
-  { title: '检查状态', key: 'username', width: 150, ellipsis: { tooltip: true } },
-  { title: '检查时间', key: 'username', width: 150, ellipsis: { tooltip: true } },
-  { title: '检查人id', key: 'username', width: 150, ellipsis: { tooltip: true } },
-  { title: '负责人id', key: 'username', width: 150, ellipsis: { tooltip: true } },
-  { title: '计划时间', key: 'username', width: 150, ellipsis: { tooltip: true } },
+  { title: 'id', key: 'id', width: 50, ellipsis: { tooltip: true } },
+  { title: '子项ID', key: 'subitem_id', width: 80, ellipsis: { tooltip: true } },
+  { title: '基站名称', key: 'name', width: 100, ellipsis: { tooltip: true } },
+  { title: '详细地区', key: 'address', width: 120, ellipsis: { tooltip: true } },
   {
-    title: 'touxiang',
-    key: 'avatar',
+    title: '基站图片',
+    key: 'image',
     width: 80,
-    render: ({ avatar }) =>
+    render: ({ image }) =>
       h(NAvatar, {
         size: 'medium',
-        src: avatar,
+        src: image.length > 0 ? image[0] : '', // 使用数组的第一个值作为图片源
       }),
   },
-  { title: '用户名', key: 'username', width: 150, ellipsis: { tooltip: true } },
-  {
-    title: '角色',
-    key: 'roles',
-    width: 200,
-    ellipsis: { tooltip: true },
-    render: ({ roles }) => {
-      if (roles?.length) {
-        return roles.map((item, index) =>
-          h(
-            NTag,
-            { type: 'success', style: index > 0 ? 'margin-left: 8px;' : '' },
-            { default: () => item.name },
-          ),
-        )
-      }
-      return '暂无角色'
-    },
-  },
-  {
-    title: '性别',
-    key: 'gender',
-    width: 80,
-    render: ({ gender }) => genders.find(item => gender === item.value)?.label ?? '',
-  },
-  { title: '邮箱', key: 'email', width: 150, ellipsis: { tooltip: true } },
-  {
-    title: '创建时间',
-    key: 'createDate',
-    width: 180,
-    render(row) {
-      return h('span', formatDateTime(row.createTime))
-    },
-  },
-  {
-    title: '状态',
-    key: 'enable',
-    width: 120,
-    render: row =>
-      h(
-        NSwitch,
-        {
-          size: 'small',
-          rubberBand: false,
-          value: row.enable,
-          loading: !!row.enableLoading,
-          onUpdateValue: () => handleEnable(row),
-        },
-        {
-          checked: () => '启用',
-          unchecked: () => '停用',
-        },
-      ),
-  },
+  { title: '检查状态', key: 'check_status', width: 50, ellipsis: { tooltip: true } },
+  { title: '检查时间', key: 'check_time', width: 150, ellipsis: { tooltip: true } },
+  { title: '检查人', key: 'check_user', width: 50, ellipsis: { tooltip: true } },
+  { title: '负责人', key: 'principal_id', width: 50, ellipsis: { tooltip: true } },
+  { title: '计划时间', key: '计划检查时间', width: 150, ellipsis: { tooltip: true } },
+  // {
+  //   title: '性别', // 表格列的标题
+  //   key: 'gender', // 对应列内容的字段名，用于从数据对象中取值
+  //   width: 80, // 设置列的宽度为80像素
+  //   render: ({ gender }) => genders.find(item => gender === item.value)?.label ?? '2', // 自定义渲染函数，用于显示列的内容
+  //   // render函数接收一个参数，其中包含了gender字段的值
+  //   // 使用genders数组查找与gender字段值相匹配的项，并返回该项的label属性作为显示内容
+  //   // 如果没有找到匹配项，则显示空字符串
+  // },
+  // {
+  //   title: '创建时间',
+  //   key: 'createDate',
+  //   width: 180,
+  //   render(row) {
+  //     return h('span', formatDateTime(row.createTime))
+  //   },
+  // },
+  // {
+  //   title: '状态',
+  //   key: 'enable',
+  //   width: 120,
+  //   render: row =>
+  //     h(
+  //       NSwitch,
+  //       {
+  //         size: 'small',
+  //         rubberBand: false,
+  //         value: row.enable,
+  //         loading: !!row.enableLoading,
+  //         onUpdateValue: () => handleEnable(row),
+  //       },
+  //       {
+  //         checked: () => '启用',
+  //         unchecked: () => '停用',
+  //       },
+  //     ),
+  // },
   {
     title: '操作',
     key: 'actions',
-    width: 320,
+    width: 140,
     align: 'right',
     fixed: 'right',
     hideInExcel: true,
@@ -231,7 +187,7 @@ const columns = [
             onClick: () => handleOpenRolesSet(row),
           },
           {
-            default: () => '分配角色',
+            default: () => '编辑',
             icon: () => h('i', { class: 'i-carbon:user-role text-14' }),
           },
         ),
@@ -241,10 +197,10 @@ const columns = [
             size: 'small',
             type: 'primary',
             style: 'margin-left: 12px;',
-            onClick: () => handleOpen({ action: 'reset', title: '重置密码', row, onOk: onSave }),
+            onClick: () => handleOpen({ action: 'reset', title: '删除', row, onOk: onSave }),
           },
           {
-            default: () => '重置密码',
+            default: () => '删除',
             icon: () => h('i', { class: 'i-radix-icons:reset text-14' }),
           },
         ),
