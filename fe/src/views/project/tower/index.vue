@@ -8,15 +8,13 @@
     </template>
     <MeCrud ref="$table" v-model:query-items="queryItems" :scroll-x="2000" :columns="columns" :get-data="api.read">
       <MeQueryItem label="项目包" :label-width="50">
-        <n-input v-model:value="queryItems.username" type="text" placeholder="projectName" clearable />
+        <n-select v-model:value="queryItems.project_id" clearable :options="statusOptions" />
       </MeQueryItem>
 
       <MeQueryItem label="子项" :label-width="50">
-        <n-input v-model:value="queryItems.username" type="text" placeholder="sub" clearable />
+        <n-select v-model:value="queryItems.subitem_id" clearable :options="statusOptions" />
       </MeQueryItem>
-
-
-      <MeQueryItem label="性别" :label-width="50">
+      <!-- <MeQueryItem label="性别" :label-width="50">
         <n-select v-model:value="queryItems.gender" clearable :options="genders" />
       </MeQueryItem>
 
@@ -25,9 +23,9 @@
           { label: '启用', value: 1 },
           { label: '停用', value: 0 },
         ]" />
-      </MeQueryItem>
+      </MeQueryItem> -->
     </MeCrud>
-
+    <!-- 这里是编辑表单的填写 -->
     <MeModal ref="modalRef" width="520px">
       <n-form ref="modalFormRef" label-placement="left" label-align="left" :label-width="80" :model="modalForm"
         :disabled="modalAction === 'view'">
@@ -38,6 +36,38 @@
         }">
           <n-input v-model:value="modalForm.username" :disabled="modalAction !== 'add'" />
         </n-form-item>
+
+        <!-- <n-form-item label="项目包">
+          <n-input v-model:value="modalForm.project_id" placeholder="请输入项目包ID" />
+        </n-form-item> -->
+        <n-form-item label="子项名称">
+          <n-input v-model:value="modalForm.subitem_id" placeholder="请输入子项名称" />
+        </n-form-item>
+        <n-form-item label="杆塔名称">
+          <n-input v-model:value="modalForm.name" placeholder="请输入杆塔名称" />
+        </n-form-item>
+        <n-form-item label="详细地区">
+          <n-input v-model:value="modalForm.address" placeholder="请输入详细地区" />
+        </n-form-item>
+        <!-- <n-form-item label="基站图片">
+          <n-upload v-model:value="modalForm.image" />
+        </n-form-item> -->
+        <n-form-item label="检查状态">
+          <n-select v-model:value="modalForm.check_status" :options="statusOptions" />
+        </n-form-item>
+        <n-form-item label="检查时间"> 
+          <n-input v-model:value="modalForm.check_time"  placeholder="选择检查时间" />
+        </n-form-item> 
+        <n-form-item label="检查人">
+          <n-input v-model:value="modalForm.check_user" placeholder="请输入检查人姓名" />
+        </n-form-item>
+        <n-form-item label="负责人">
+          <n-input v-model:value="modalForm.principal_id" placeholder="请输入负责人ID" />
+        </n-form-item>
+        <n-form-item label="计划时间">
+          <n-input v-model:value="modalForm.plan_check_time"  placeholder="选择计划时间" />
+        </n-form-item>
+
         <n-form-item v-if="['add', 'reset'].includes(modalAction)" :label="modalAction === 'reset' ? '重置密码' : '初始密码'"
           path="password" :rule="{
             required: true,
@@ -86,6 +116,13 @@ onMounted(() => {
   $table.value?.handleSearch()
 })
 
+const statusOptions = ref([
+  { label: '启用', value: 1 },
+  { label: '停用', value: 0 },
+  { label: 'test', value: 4 },
+])
+
+
 const genders = [
   { label: '男', value: 1 },
   { label: '女', value: 2 },
@@ -102,20 +139,26 @@ const {
   handleDelete,
   handleOpen,
   handleSave,
+  handleEdit,
 } = useCrud({
-  name: '用户',
+  name: '杆塔',
   initForm: { enable: true },
   doCreate: api.create,
   doDelete: api.delete,
   doUpdate: api.update,
   refresh: () => $table.value?.handleSearch(),
 })
-
+const statusMap = {
+  "1": '未完成',
+  "2": '已完成',
+  // 添加更多状态映射
+};
 
 const columns = [
   { title: 'id', key: 'id', width: 50, ellipsis: { tooltip: true } },
-  { title: '子项ID', key: 'subitem_id', width: 80, ellipsis: { tooltip: true } },
-  { title: '基站名称', key: 'name', width: 100, ellipsis: { tooltip: true } },
+  { title: '项目包', key: 'project_id', width: 80, ellipsis: { tooltip: true } },
+  { title: '子项名称', key: 'subitem_id', width: 80, ellipsis: { tooltip: true } },
+  { title: '杆塔名称', key: 'name', width: 100, ellipsis: { tooltip: true } },
   { title: '详细地区', key: 'address', width: 120, ellipsis: { tooltip: true } },
   {
     title: '基站图片',
@@ -127,7 +170,16 @@ const columns = [
         src: image.length > 0 ? image[0] : '', // 使用数组的第一个值作为图片源
       }),
   },
-  { title: '检查状态', key: 'check_status', width: 50, ellipsis: { tooltip: true } },
+  {
+    title: '检查状态',
+    key: 'check_status',
+    width: 80,
+    render: ({ check_status }) =>
+      h(NTag, {
+        type: check_status == 1 ? 'warning' : 'success',
+        // 根据状态值显示对应的文本
+      }, { default: () => statusMap[check_status] }),
+  },
   { title: '检查时间', key: 'check_time', width: 150, ellipsis: { tooltip: true } },
   { title: '检查人', key: 'check_user', width: 50, ellipsis: { tooltip: true } },
   { title: '负责人', key: 'principal_id', width: 50, ellipsis: { tooltip: true } },
@@ -183,12 +235,12 @@ const columns = [
           {
             size: 'small',
             type: 'primary',
-            secondary: true,
-            onClick: () => handleOpenRolesSet(row),
+            style: 'margin-left: 12px;',
+            onClick: () => handleOpen({ action: 'reset', title: '查看', row, onOk: onSave }),
           },
           {
-            default: () => '编辑',
-            icon: () => h('i', { class: 'i-carbon:user-role text-14' }),
+            default: () => '查看',
+            icon: () => h('i', { class: 'i-radix-icons:reset text-14' }),
           },
         ),
         h(
@@ -197,14 +249,28 @@ const columns = [
             size: 'small',
             type: 'primary',
             style: 'margin-left: 12px;',
-            onClick: () => handleOpen({ action: 'reset', title: '删除', row, onOk: onSave }),
+            disabled: row.code === 'SUPER_ADMIN',
+            onClick: () => handleEdit(row),
           },
           {
-            default: () => '删除',
-            icon: () => h('i', { class: 'i-radix-icons:reset text-14' }),
+            default: () => '编辑',
+            icon: () => h('i', { class: 'i-material-symbols:edit-outline text-14' }),
           },
         ),
 
+        h(
+          NButton,
+          {
+            size: 'small',
+            type: 'primary',
+            style: 'margin-left: 12px;',
+            onClick: () => handleOpen({ action: 'reset', title: '查看', row, onOk: onSave }),
+          },
+          {
+            default: () => '编辑',
+            icon: () => h('i', { class: 'i-radix-icons:reset text-14' }),
+          },
+        ),
         h(
           NButton,
           {
