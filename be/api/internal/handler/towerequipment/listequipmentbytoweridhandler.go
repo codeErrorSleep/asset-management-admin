@@ -1,12 +1,11 @@
 package towerequipment
 
 import (
-	"net/http"
-
 	"be/api/internal/logic/towerequipment"
 	"be/api/internal/svc"
 	"be/api/internal/types"
 	"be/api/response"
+	"net/http"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
 )

@@ -1,14 +1,12 @@
 package tower
 
 import (
-	"net/http"
-
 	"be/api/internal/logic/tower"
 	"be/api/internal/svc"
 	"be/api/internal/types"
 	"be/api/response"
-
 	"github.com/zeromicro/go-zero/rest/httpx"
+	"net/http"
 )
 
 func ListTowerDetailsHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
