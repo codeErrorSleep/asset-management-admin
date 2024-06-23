@@ -1,13 +1,6 @@
-<!--------------------------------
- - @Author: Ronnie Zhang
- - @LastEditor: Ronnie Zhang
- - @LastEditTime: 2023/12/05 21:29:56
- - @Email: zclzone@outlook.com
- -  | https://isme.top
- --------------------------------->
-
 <template>
   <CommonPage>
+
     <template #action>
       <NButton type="primary" @click="handleAdd()">
         <i class="i-material-symbols:add mr-4 text-18" />
@@ -15,66 +8,56 @@
       </NButton>
     </template>
 
-    <MeCrud ref="$table" v-model:query-items="queryItems" :scroll-x="2500" :columns="columns" :get-data="api.read">
+    <MeCrud ref="$table" v-model:query-items="queryItems" :scroll-x="2000" :columns="columns" :get-data="api.read">
       <MeQueryItem label="项目包" :label-width="50">
-        <n-input v-model:value="queryItems.username" type="text" placeholder="projectName" clearable />
+        <n-select v-model:value="queryItems.project_id" clearable :options="statusOptions" />
       </MeQueryItem>
 
       <MeQueryItem label="子项" :label-width="50">
-        <n-input v-model:value="queryItems.username" type="text" placeholder="sub" clearable />
-      </MeQueryItem>
-
-
-      <MeQueryItem label="性别" :label-width="50">
-        <n-select v-model:value="queryItems.gender" clearable :options="genders" />
-      </MeQueryItem>
-
-      <MeQueryItem label="状态" :label-width="50">
-        <n-select v-model:value="queryItems.enable" clearable :options="[
-          { label: '启用', value: 1 },
-          { label: '停用', value: 0 },
-        ]" />
+        <n-select v-model:value="queryItems.subitem_id" clearable :options="statusOptions" />
       </MeQueryItem>
     </MeCrud>
 
+    <!-- 这里是编辑表单的填写 -->
     <MeModal ref="modalRef" width="520px">
       <n-form ref="modalFormRef" label-placement="left" label-align="left" :label-width="80" :model="modalForm"
         :disabled="modalAction === 'view'">
-        <n-form-item label="用户名" path="username" :rule="{
-          required: true,
-          message: '请输入用户名',
-          trigger: ['input', 'blur'],
-        }">
-          <n-input v-model:value="modalForm.username" :disabled="modalAction !== 'add'" />
+        <n-form-item label="子项id">
+          <n-input-number v-model:value="modalForm.subitem_id" placeholder="请输入子项名称" />
         </n-form-item>
-        <n-form-item v-if="['add', 'reset'].includes(modalAction)" :label="modalAction === 'reset' ? '重置密码' : '初始密码'"
-          path="password" :rule="{
-            required: true,
-            message: '请输入密码',
-            trigger: ['input', 'blur'],
-          }">
-          <n-input v-model:value="modalForm.password" />
+        <n-form-item label="杆塔名称">
+          <n-input v-model:value="modalForm.name" placeholder="请输入杆塔名称" />
         </n-form-item>
-
-        <n-form-item v-if="['add', 'setRole'].includes(modalAction)" label="角色" path="roleIds">
-          <n-select v-model:value="modalForm.roleIds" :options="roles" label-field="name" value-field="id" clearable
-            filterable multiple />
+        <n-form-item label="详细地区">
+          <n-input v-model:value="modalForm.address" placeholder="请输入详细地区" />
         </n-form-item>
-        <n-form-item v-if="modalAction === 'add'" label="状态" path="enable">
-          <NSwitch v-model:value="modalForm.enable">
-            <template #checked>
-              启用
-            </template>
-            <template #unchecked>
-              停用
-            </template>
-          </NSwitch>
+        <n-form-item label="检查状态">
+          <n-select v-model:value="modalForm.check_status" :options="statusOptions" />
+        </n-form-item>
+        <n-form-item label="检查时间">
+          <n-input v-model:value="modalForm.check_time" placeholder="选择检查时间" />
+        </n-form-item>
+        <n-form-item label="检查人">
+          <n-input-number v-model:value="modalForm.check_user" placeholder="请输入检查人姓名" />
+        </n-form-item>
+        <n-form-item label="负责人">
+          <n-input-number v-model:value="modalForm.principal_id" placeholder="请输入负责人ID" />
+        </n-form-item>
+        <n-form-item label="计划时间">
+          <n-date-picker v-model:value="modalForm.plan_check_time" type="datetime" placeholder="选择计划时间"
+            :value-format="'yyyy-MM-dd HH:mm:ss'" />
         </n-form-item>
       </n-form>
-      <n-alert v-if="modalAction === 'add'" type="warning" closable>
-        详细信息需由用户本人补充修改
-      </n-alert>
     </MeModal>
+
+
+    <!-- todo 这里看一下要怎么解决获取数据异常问题-->
+    <MeModal ref="modalRef" width="520px">
+      <MeCrud ref="$deviceListTable" v-model:query-items="deviceListTableQueryItems" :scroll-x="2000"
+        :columns="deviceListColumns" :get-data="api.readDeviceList">
+      </MeCrud>
+    </MeModal>
+
   </CommonPage>
 </template>
 
@@ -87,20 +70,36 @@ import { useCrud } from '@/composables'
 
 defineOptions({ name: 'UserMgt' })
 
+// 这里的正常的浏览表格的
 const $table = ref(null)
 /** QueryBar筛选参数（可选） */
 const queryItems = ref({})
 
+
+// 这里是查看设备的逻辑
+// 这里的正常的浏览表格的
+const $deviceListTable = ref(null)
+/** QueryBar筛选参数（可选） */
+const deviceListTableQueryItems = ref([])
+
+// 页面加载就执行查询方法
 onMounted(() => {
   $table.value?.handleSearch()
+  $deviceListTable.value?.handleSearch()
 })
 
-const genders = [
-  { label: '男', value: 1 },
-  { label: '女', value: 2 },
-]
-const roles = ref([])
-api.getAllRoles().then(({ data = [] }) => (roles.value = data))
+
+// 定义响应式变量来存储表格数据
+const deviceListData = ref([]);
+
+
+// 检查状态的展示
+const statusOptions = ref([
+  { label: '启用', value: 1 },
+  { label: '停用', value: 0 },
+  { label: '待检测', value: 2 },
+  { label: 'todo', value: 3 },
+])
 
 const {
   modalRef,
@@ -111,8 +110,9 @@ const {
   handleDelete,
   handleOpen,
   handleSave,
+  handleEdit,
 } = useCrud({
-  name: '用户',
+  name: '杆塔',
   initForm: { enable: true },
   doCreate: api.create,
   doDelete: api.delete,
@@ -120,103 +120,55 @@ const {
   refresh: () => $table.value?.handleSearch(),
 })
 
-// create table t_tower_detail
-// (
-//     id            int auto_increment comment '主键ID'
-//         primary key,
-//     subitem_id    int                                not null comment '子项ID',
-//     name          varchar(255)                       not null comment '基站名称',
-//     address       varchar(255)                       not null comment '详细地区',
-//     image         text                               null comment '基站图片，考虑是否支持展示多张',
-//     check_status  varchar(50)                        null comment '检查状态',
-//     check_time    datetime                           null comment '检查时间',
-//     check_user_id int                                null comment '检查人ID',
-//     principal_id  int                                null comment '负责人ID',
-//     plan_time     datetime                           null comment '计划检查时间',
-//     create_time   datetime default CURRENT_TIMESTAMP not null comment '创建时间',
-//     update_time   datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间'
-// )
-//     comment '杆塔详情表';
-
+const statusMap = {
+  "0": 'todotest',
+  "1": '未完成',
+  "2": '已完成',
+  "3": '待检测',
+  "4": 'todo',
+  // 添加更多状态映射
+};
 
 const columns = [
-  { title: 'id', key: 'username', width: 150, ellipsis: { tooltip: true } },
-  { title: '子项ID', key: 'username', width: 150, ellipsis: { tooltip: true } },
-  { title: '详细地区', key: 'username', width: 150, ellipsis: { tooltip: true } },
-  { title: '基站图片', key: 'username', width: 150, ellipsis: { tooltip: true } },
-  { title: '检查状态', key: 'username', width: 150, ellipsis: { tooltip: true } },
-  { title: '检查时间', key: 'username', width: 150, ellipsis: { tooltip: true } },
-  { title: '检查人id', key: 'username', width: 150, ellipsis: { tooltip: true } },
-  { title: '负责人id', key: 'username', width: 150, ellipsis: { tooltip: true } },
-  { title: '计划时间', key: 'username', width: 150, ellipsis: { tooltip: true } },
+  { title: 'id', key: 'id', width: 50, ellipsis: { tooltip: true } },
+  { title: '项目包', key: 'project_id', width: 80, ellipsis: { tooltip: true } },
+  { title: '子项名称', key: 'subitem_id', width: 80, ellipsis: { tooltip: true } },
+  { title: '杆塔名称', key: 'name', width: 100, ellipsis: { tooltip: true } },
+  { title: '详细地区', key: 'address', width: 120, ellipsis: { tooltip: true } },
   {
-    title: 'touxiang',
-    key: 'avatar',
+    title: '基站图片',
+    key: 'image',
     width: 80,
-    render: ({ avatar }) =>
+    render: ({ image }) =>
       h(NAvatar, {
         size: 'medium',
-        src: avatar,
+        src: image.length > 0 ? image[0] : '', // 使用数组的第一个值作为图片源
       }),
   },
-  { title: '用户名', key: 'username', width: 150, ellipsis: { tooltip: true } },
   {
-    title: '角色',
-    key: 'roles',
-    width: 200,
-    ellipsis: { tooltip: true },
-    render: ({ roles }) => {
-      if (roles?.length) {
-        return roles.map((item, index) =>
-          h(
-            NTag,
-            { type: 'success', style: index > 0 ? 'margin-left: 8px;' : '' },
-            { default: () => item.name },
-          ),
-        )
-      }
-      return '暂无角色'
-    },
-  },
-  {
-    title: '性别',
-    key: 'gender',
+    title: '检查状态',
+    key: 'check_status',
     width: 80,
-    render: ({ gender }) => genders.find(item => gender === item.value)?.label ?? '',
-  },
-  { title: '邮箱', key: 'email', width: 150, ellipsis: { tooltip: true } },
-  {
-    title: '创建时间',
-    key: 'createDate',
-    width: 180,
-    render(row) {
-      return h('span', formatDateTime(row.createTime))
-    },
+    render: ({ check_status }) =>
+      h(NTag, {
+        type: check_status == 1 ? 'warning' : 'success',
+        // 根据状态值显示对应的文本
+      }, { default: () => statusMap[check_status] }),
   },
   {
-    title: '状态',
-    key: 'enable',
-    width: 120,
-    render: row =>
-      h(
-        NSwitch,
-        {
-          size: 'small',
-          rubberBand: false,
-          value: row.enable,
-          loading: !!row.enableLoading,
-          onUpdateValue: () => handleEnable(row),
-        },
-        {
-          checked: () => '启用',
-          unchecked: () => '停用',
-        },
-      ),
+    title: '检查时间',
+    key: 'check_time',
+    width: 150,
+    ellipsis: { tooltip: true },
+    render: ({ check_time }) => check_time ? new Date(check_time).toLocaleString() : ''
   },
+  { title: '检查人', key: 'check_user', width: 50, ellipsis: { tooltip: true } },
+  { title: '负责人', key: 'principal_id', width: 50, ellipsis: { tooltip: true } },
+  { title: '计划时间', key: '计划检查时间', width: 150, ellipsis: { tooltip: true } },
   {
     title: '操作',
     key: 'actions',
-    width: 320,
+    width: 140,
     align: 'right',
     fixed: 'right',
     hideInExcel: true,
@@ -227,12 +179,12 @@ const columns = [
           {
             size: 'small',
             type: 'primary',
-            secondary: true,
-            onClick: () => handleOpenRolesSet(row),
+            style: 'margin-left: 12px;',
+            onClick: () => handleGetDeviceList(row),
           },
           {
-            default: () => '分配角色',
-            icon: () => h('i', { class: 'i-carbon:user-role text-14' }),
+            default: () => '查看设备',
+            icon: () => h('i', { class: 'i-radix-icons:reset text-14' }),
           },
         ),
         h(
@@ -241,14 +193,27 @@ const columns = [
             size: 'small',
             type: 'primary',
             style: 'margin-left: 12px;',
-            onClick: () => handleOpen({ action: 'reset', title: '重置密码', row, onOk: onSave }),
+            onClick: () => handleGetDeviceList(row),
           },
           {
-            default: () => '重置密码',
+            default: () => '比对',
             icon: () => h('i', { class: 'i-radix-icons:reset text-14' }),
           },
         ),
-
+        h(
+          NButton,
+          {
+            size: 'small',
+            type: 'primary',
+            style: 'margin-left: 12px;',
+            disabled: row.code === 'SUPER_ADMIN',
+            onClick: () => handleEdit(row),
+          },
+          {
+            default: () => '编辑',
+            icon: () => h('i', { class: 'i-material-symbols:edit-outline text-14' }),
+          },
+        ),
         h(
           NButton,
           {
@@ -267,28 +232,34 @@ const columns = [
   },
 ]
 
-async function handleEnable(row) {
-  row.enableLoading = true
+
+// 定义 handleFetchData 函数，用于请求接口并渲染数据
+async function handleGetDeviceList(row) {
   try {
-    await api.update({ id: row.id, enable: !row.enable })
-    row.enableLoading = false
-    $message.success('操作成功')
-    $table.value?.handleSearch()
+    // 请求接口，传入必要的参数，例如 row.id
+    const response = await api.readDeviceList(row.id);
+    // 检查响应码是否为成功
+    if (response.code === 0) {
+      // 将响应中的设备列表赋值给响应式对象
+      deviceListData.value = response.data.pageData;
+      console.log(deviceListData.value);
+    } else {
+      // 处理错误情况，例如显示错误消息
+      console.error(response.msg);
+    }
+  } catch (error) {
+    // 处理错误情况
+    console.error(error);
   }
-  catch (error) {
-    row.enableLoading = false
-  }
+  // 打开模态框
+  handleOpen({ action: 'view', row: deviceListData });
 }
 
-function handleOpenRolesSet(row) {
-  const roleIds = row.roles.map(item => item.id)
-  handleOpen({
-    action: 'setRole',
-    title: '分配角色',
-    row: { id: row.id, username: row.username, roleIds },
-    onOk: onSave,
-  })
-}
+// 查看设备的列表的table
+const deviceListColumns = [
+  { title: 'id', key: 'id', width: 10, ellipsis: { tooltip: true } },
+  { title: '设备', key: 'name', width: 10, ellipsis: { tooltip: true } },]
+
 
 function onSave() {
   if (modalAction.value === 'setRole') {

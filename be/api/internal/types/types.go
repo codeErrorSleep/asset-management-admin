@@ -2,18 +2,18 @@
 package types
 
 type TowerDetail struct {
-	Id          int64  `json:"id"`            // 主键ID
-	SubitemId   int64  `json:"subitem_id"`    // 子项ID
-	Name        string `json:"name"`          // 基站名称
-	Address     string `json:"address"`       // 详细地区
-	Image       string `json:"image"`         // 基站图片，考虑是否支持展示多张
-	CheckStatus string `json:"check_status"`  // 检查状态
-	CheckTime   string `json:"check_time"`    // 检查时间
-	CheckUserId int64  `json:"check_user_id"` // 检查人ID
-	PrincipalId int64  `json:"principal_id"`  // 负责人ID
-	PlanTime    string `json:"plan_time"`     // 计划检查时间
-	CreateTime  string `json:"create_time"`   // 创建时间
-	UpdateTime  string `json:"update_time"`   // 更新时间
+	Id          int64    `json:"id"`            // 主键ID
+	SubitemId   int64    `json:"subitem_id"`    // 子项ID
+	Name        string   `json:"name"`          // 基站名称
+	Address     string   `json:"address"`       // 详细地区
+	Image       []string `json:"image"`         // 基站图片，考虑是否支持展示多张
+	CheckStatus string   `json:"check_status"`  // 检查状态
+	CheckTime   string   `json:"check_time"`    // 检查时间
+	CheckUserId int64    `json:"check_user_id"` // 检查人ID
+	PrincipalId int64    `json:"principal_id"`  // 负责人ID
+	PlanTime    string   `json:"plan_time"`     // 计划检查时间
+	CreateTime  string   `json:"create_time"`   // 创建时间
+	UpdateTime  string   `json:"update_time"`   // 更新时间
 }
 
 type CreateTowerDetailReq struct {
@@ -54,13 +54,13 @@ type GetTowerDetailResp struct {
 }
 
 type ListTowerDetailsReq struct {
-	Page     int64 `json:"page"`      // 页码
-	PageSize int64 `json:"page_size"` // 每页数量
+	PageNo   string `form:"pageNo"`
+	PageSize string `form:"pageSize"`
 }
 
 type ListTowerDetailsResp struct {
-	TowerDetails []TowerDetail `json:"tower_details"` // 杆塔详情列表
-	Total        int64         `json:"total"`         // 总数
+	PageData []TowerDetail `json:"pageData"` // 杆塔详情列表
+	Total    int64         `json:"total"`    // 总数
 }
 
 type DeleteTowerDetailReq struct {
@@ -71,21 +71,13 @@ type DeleteTowerDetailResp struct {
 	Deleted bool `json:"deleted"` // 是否删除成功
 }
 
-type TowerEquipment struct {
-	Id          int64  `json:"id"`           // 主键ID
-	TowerId     int64  `json:"tower_id"`     // 杆塔ID
-	EquipmentId int64  `json:"equipment_id"` // 设备管理ID
-	PrincipalId int64  `json:"principal_id"` // 负责人ID
-	CreateTime  string `json:"create_time"`  // 创建时间
-	UpdateTime  string `json:"update_time"`  // 更新时间
-}
-
 type ListEquipmentByTowerIdReq struct {
-	TowerId int64 `json:"tower_id"` // 杆塔ID
+	Id int64 `path:"id"` // 杆塔ID
 }
 
 type ListEquipmentByTowerIdResp struct {
-	Equipments []TowerEquipment `json:"equipments"` // 设备列表
+	PageData []EquipmentDetail `json:"pageData"` // 设备列表
+	Total    int64             `json:"total"`    // 总数
 }
 
 type CreateTowerEquipmentReq struct {

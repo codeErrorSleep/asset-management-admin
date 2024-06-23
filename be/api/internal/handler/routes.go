@@ -49,7 +49,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 		[]rest.Route{
 			{
 				Method:  http.MethodGet,
-				Path:    "/api/tower-equipment/list",
+				Path:    "/api/tower-equipment/list/:id",
 				Handler: towerequipment.ListEquipmentByTowerIdHandler(serverCtx),
 			},
 			{
