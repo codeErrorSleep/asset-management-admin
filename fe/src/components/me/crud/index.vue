@@ -6,7 +6,7 @@
  -  | https://isme.top
  --------------------------------->
 
-<template>
+ <template>
   <AppCard v-if="$slots.default" bordered bg="#fafafc dark:black" class="mb-30 min-h-60 rounded-4">
     <form class="flex justify-between p-16" @submit.prevent="handleSearch()">
       <n-space wrap :size="[32, 16]">
@@ -99,6 +99,7 @@ const pagination = reactive({ page: 1, pageSize: 10 })
 
 async function handleQuery() {
   try {
+    console.log('props.queryItems', props.queryItems);
     loading.value = true
     let paginationParams = {}
     // 如果非分页模式或者使用前端分页,则无需传分页参数
@@ -121,9 +122,27 @@ async function handleQuery() {
     loading.value = false
   }
 }
+
+async function handleQueryModel(rowId) {
+  try {
+    loading.value = true
+    console.log('props.queryItems', props.queryItems);
+    const { data } = await props.getData(rowId)
+    tableData.value = data?.pageData || data
+  }
+  finally {
+    emit('onDataChange', tableData.value)
+    loading.value = false
+  }
+}
+
 function handleSearch() {
   pagination.page = 1
   handleQuery()
+}
+
+function handleSearchModel(rowId) {
+  handleQueryModel(rowId)
 }
 async function handleReset() {
   const queryItems = { ...props.queryItems }
@@ -163,5 +182,6 @@ defineExpose({
   handleSearch,
   handleReset,
   handleExport,
+  handleSearchModel
 })
 </script>
