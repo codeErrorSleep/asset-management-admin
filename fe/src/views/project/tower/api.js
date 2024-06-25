@@ -18,5 +18,6 @@ export default {
   getAllRoles: () => request.get('/role?enable=1'),
 
   // 绑定设备
+  // readDeviceList: (params = {}) => request.get(`/api/tower-equipment/list/`, { params }),
   readDeviceList: id => request.get(`/api/tower-equipment/list/${id}`),
 }

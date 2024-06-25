@@ -53,7 +53,7 @@
 
     <!-- todo 这里看一下要怎么解决获取数据异常问题-->
     <MeModal ref="modalRef" width="520px">
-      <MeCrud ref="$deviceListTable" v-model:query-items="deviceListTableQueryItems" :scroll-x="2000"
+      <MeCrud ref="$deviceListTable" v-model:query-items="deviceListTableQueryItems" :scroll-x="200"
         :columns="deviceListColumns" :get-data="api.readDeviceList">
       </MeCrud>
     </MeModal>
@@ -80,12 +80,12 @@ const queryItems = ref({})
 // 这里的正常的浏览表格的
 const $deviceListTable = ref(null)
 /** QueryBar筛选参数（可选） */
-const deviceListTableQueryItems = ref([])
+const deviceListTableQueryItems = ref({})
 
 // 页面加载就执行查询方法
 onMounted(() => {
   $table.value?.handleSearch()
-  $deviceListTable.value?.handleSearch()
+  // $deviceListTable.value?.handleSearch()
 })
 
 
@@ -235,30 +235,24 @@ const columns = [
 
 // 定义 handleFetchData 函数，用于请求接口并渲染数据
 async function handleGetDeviceList(row) {
-  try {
-    // 请求接口，传入必要的参数，例如 row.id
-    const response = await api.readDeviceList(row.id);
-    // 检查响应码是否为成功
-    if (response.code === 0) {
-      // 将响应中的设备列表赋值给响应式对象
-      deviceListData.value = response.data.pageData;
-      console.log(deviceListData.value);
-    } else {
-      // 处理错误情况，例如显示错误消息
-      console.error(response.msg);
-    }
-  } catch (error) {
-    // 处理错误情况
-    console.error(error);
-  }
   // 打开模态框
   handleOpen({ action: 'view', row: deviceListData });
+  console.log('111', $deviceListTable.value);
+  deviceListTableQueryItems.id = row.id
+  console.log('row.id', row.id, deviceListTableQueryItems.id);
+  setTimeout(() => {
+    deviceListTableQueryItems.pageNo = row.id
+    deviceListTableQueryItems.value.pageNo = row.id
+    $deviceListTable.value?.handleSearchModel(row.id)
+    // $deviceListTable.value?.handleSearch()
+
+  }, 1000);
 }
 
 // 查看设备的列表的table
 const deviceListColumns = [
-  { title: 'id', key: 'id', width: 10, ellipsis: { tooltip: true } },
-  { title: '设备', key: 'name', width: 10, ellipsis: { tooltip: true } },]
+  // { title: 'id', key: 'id', width: 10, ellipsis: { tooltip: true } },
+  { title: '设备列表', key: 'name', width: 10, ellipsis: { tooltip: true } },]
 
 
 function onSave() {

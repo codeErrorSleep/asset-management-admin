@@ -24,11 +24,19 @@ func NewListEquipmentByTowerIdLogic(ctx context.Context, svcCtx *svc.ServiceCont
 }
 
 func (l *ListEquipmentByTowerIdLogic) ListEquipmentByTowerId(req *types.ListEquipmentByTowerIdReq) (resp *types.ListEquipmentByTowerIdResp, err error) {
+	respEquipmentList := make([]types.EquipmentDetail, 0)
+	resp = &types.ListEquipmentByTowerIdResp{
+		PageData: respEquipmentList,
+	}
 
 	// 直接查关联表,
 	towerEquipmentRelateIDList, err := l.svcCtx.TTowerEquipmentModel.FindListByTowerId(l.ctx, req.Id)
 	if err != nil {
-		return nil, err
+		return resp, err
+	}
+
+	if len(towerEquipmentRelateIDList) == 0 {
+		return resp, nil
 	}
 
 	equipmentIDList := make([]int64, 0)
@@ -38,10 +46,9 @@ func (l *ListEquipmentByTowerIdLogic) ListEquipmentByTowerId(req *types.ListEqui
 	// 然后查具体的设备表
 	equipmentList, err := l.svcCtx.TEquipmentDetailModel.FindByIds(l.ctx, equipmentIDList)
 	if err != nil {
-		return nil, err
+		return resp, err
 	}
 
-	respEquipmentList := make([]types.EquipmentDetail, 0)
 	for _, v := range equipmentList {
 		respEquipmentList = append(respEquipmentList, types.EquipmentDetail{
 			Id:            v.Id,
@@ -56,10 +63,8 @@ func (l *ListEquipmentByTowerIdLogic) ListEquipmentByTowerId(req *types.ListEqui
 	}
 
 	// 组合返回
-	resp = &types.ListEquipmentByTowerIdResp{
-		PageData: respEquipmentList,
-		Total:    int64(len(respEquipmentList)),
-	}
+	resp.PageData = respEquipmentList
+	resp.Total = int64(len(respEquipmentList))
 
 	return
 }
