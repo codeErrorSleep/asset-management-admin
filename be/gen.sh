@@ -1,5 +1,7 @@
 # api
-goctl api go --api api/doc/admin.api --dir ./api
+goctl api go --api api/doc/admin.api --dir ./api --remote https://github.com/codeErrorSleep/go-zero-template
+# 快速格式话import的
+# goimports -w .
 # mysql
 goctl model mysql ddl --src model/mysql/bs.sql --dir model/mysql
 # swagger

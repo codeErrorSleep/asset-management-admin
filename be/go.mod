@@ -2,7 +2,10 @@ module be
 
 go 1.20
 
-require github.com/zeromicro/go-zero v1.6.5
+require (
+	github.com/zeromicro/go-zero v1.6.5
+	github.com/zeromicro/x v0.0.0-20240408115609-8224c482b07e
+)
 
 require (
 	filippo.io/edwards25519 v1.1.0 // indirect
