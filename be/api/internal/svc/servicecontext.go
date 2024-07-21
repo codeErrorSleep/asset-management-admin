@@ -13,6 +13,7 @@ type ServiceContext struct {
 	TEquipmentDetailModel mysql.TEquipmentDetailModel
 	TTowerDetailModel     mysql.TTowerDetailModel
 	TTowerEquipmentModel  mysql.TTowerEquipmentModel
+	TUser                 mysql.UserModel
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -23,5 +24,6 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		TTowerDetailModel:     mysql.NewTTowerDetailModel(sqlConn),
 		TTowerEquipmentModel:  mysql.NewTTowerEquipmentModel(sqlConn),
 		TEquipmentDetailModel: mysql.NewTEquipmentDetailModel(sqlConn),
+		TUser:                 mysql.NewUserModel(sqlConn),
 	}
 }

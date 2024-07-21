@@ -5,6 +5,7 @@ import (
 
 	"be/api/internal/svc"
 	"be/api/internal/types"
+	"be/model/mysql"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -24,7 +25,16 @@ func NewUserAddLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UserAddLo
 }
 
 func (l *UserAddLogic) UserAdd(req *types.AddUserReq) error {
-	// todo: add your logic here and delete this line
+
+	insertData := mysql.User{
+		Username: req.Username,
+		Password: req.Password,
+	}
+
+	_, err := l.svcCtx.TUser.Insert(l.ctx, &insertData)
+	if err != nil {
+		return err
+	}
 
 	return nil
 }
